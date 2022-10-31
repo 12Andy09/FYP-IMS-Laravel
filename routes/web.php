@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
+use App\Models\Internship;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,7 @@ use App\Http\Controllers\InternshipsController;
 |
 */
 Route::resource('internships', InternshipsController::class);
-Route::get('/view/goods/{id}', [InternshipsController::class, 'view']);
+Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,8 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('Company/CompanyDashboard');
     })->middleware('can:isCompany')->name('Company_Dashboard');
 
-    Route::get('/student/dashboard', function () {
-        return view('Student/StudentDashboard');
+    Route::get('/student/dashboard', [InternshipsController::class, 'lists'], function(){
+        return view('Student/studentDashboard');
     })->middleware('can:isStudent')->name('Student_Dashboard');
 
     Route::get('/supervisor/dashboard', function () {
@@ -38,8 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->middleware('can:isSupervisor')->name('Supervisor_Dashboard');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

@@ -24,9 +24,10 @@ class InternshipsController extends Controller
      */
     public function index()
     {
+        $internships = Internship::orderByDESC('updated_at')->paginate(10);
         //link to index page
         return view('internships.index')
-            ->with('internships', Internship::orderBy('updated_at','DESC')->paginate(10));
+            ->with('internships', ['internships'=>$internships]);
     }
 
     /**
@@ -113,10 +114,17 @@ class InternshipsController extends Controller
         return redirect()->route('internships.index')
             ->with('success','Internship deleted');
     }
+    public function lists()
+    {
+        $internships = Internship::orderByDESC('updated_at')->paginate(10);
+        return view('student/studentDashboard', ['internships' =>$internships]);
+    }
 
     public function view($id)
     {
-        $internships = Internship::find($id);
-        return view('internship_view', ['internships' => $internships]);
+        $internship = Internship::find($id);
+        return view('internship_view')
+            ->with('internship',$internship)
+            ->with('category', InternshipCategory::find($internship->internship_category_id));
     }
 }
