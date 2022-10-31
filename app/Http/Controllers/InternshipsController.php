@@ -114,9 +114,9 @@ class InternshipsController extends Controller
             ->with('success','Internship deleted');
     }
 
-    // public function view($id)
-    // {
-    //     $internships = Internship::find($id);
-    //     return Inertia::render('Internship_View', ['internships' => $internships]);
-    // }
+    public function view($id)
+    {
+        $internships = Internship::find($id);
+        return view('internship_view', ['internships' => $internships]);
+    }
 }

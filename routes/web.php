@@ -13,6 +13,7 @@ use App\Http\Controllers\InternshipsController;
 |
 */
 Route::resource('internships', InternshipsController::class);
+Route::get('/view/goods/{id}', [InternshipsController::class, 'view']);
 
 Route::get('/', function () {
     return view('welcome');
