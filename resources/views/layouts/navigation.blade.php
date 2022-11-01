@@ -12,10 +12,16 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    @can('isStudent')
+                    <x-nav-link :href="route('student_dashboard')" :active="request()->routeIs('student_dashboard')">
+                        Dashboard
                     </x-nav-link>
-                </div>
+                    <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
+                        My Profile
+                    </x-nav-link>              
+                    @endcan
+                </div>        
+
             </div>
 
             <!-- Settings Dropdown -->
