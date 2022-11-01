@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StudentProfileController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
 use App\Models\Internship;
@@ -13,34 +15,32 @@ use App\Models\Internship;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::resource('internships', InternshipsController::class);
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
+
+Route::resource('student_profile', StudentProfileController::class);
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
-
 //Auth
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('Admin/AdminDashboard');
-    })->middleware('can:isAdmin')->name('Admin_Dashboard');
+    })->middleware('can:isAdmin')->name('admin_dashboard');
 
     Route::get('/company/dashboard', function () {
         return view('Company/CompanyDashboard');
-    })->middleware('can:isCompany')->name('Company_Dashboard');
+    })->middleware('can:isCompany')->name('company_dashboard');
 
-    Route::get('/student/dashboard', [InternshipsController::class, 'lists'], function(){
+    Route::get('/student/dashboard', [InternshipsController::class, 'lists'], function () {
         return view('Student/studentDashboard');
-    })->middleware('can:isStudent')->name('Student_Dashboard');
+    })->middleware('can:isStudent')->name('student_dashboard');
 
     Route::get('/supervisor/dashboard', function () {
         return view('Supervisor/SupervisorDashboard');
-    })->middleware('can:isSupervisor')->name('Supervisor_Dashboard');
+    })->middleware('can:isSupervisor')->name('supervisor_dashboard');
 });
-
-Route::get('/dashboard', function () {
-    return view('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
