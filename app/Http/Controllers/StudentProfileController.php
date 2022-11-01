@@ -42,6 +42,6 @@ class StudentProfileController extends Controller
         $user->student_profile->student_id = $request['student_id'];
         $user->push();
 
-        return redirect()->route('student_profile.index');
+        return redirect()->route('student_profile.index')->with('success', 'Profile created successfully.');
     }
 }
