@@ -47,4 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student_Profile::class);
     }
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 }

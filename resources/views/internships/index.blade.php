@@ -58,7 +58,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <span>
+                        {{$internships->appends(['search' => request() -> query('search')])->links('pagination::tailwind') }}
+                    </span>
                 </div>
+                
             </div>
         </div>
     </div>
