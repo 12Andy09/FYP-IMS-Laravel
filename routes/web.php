@@ -18,12 +18,11 @@ use App\Models\Internship;
 */
 
 Route::resource('internships', InternshipsController::class);
+Route::resource('applications', ApplicationController::class);
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::resource('student_profile', StudentProfileController::class);
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
-
-
 
 Route::get('/', function () {
     return view('welcome');
