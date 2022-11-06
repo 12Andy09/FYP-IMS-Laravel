@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }} 
+            My Profile
         </h2>
     </x-slot>
 
@@ -14,11 +14,10 @@
                         <p>{{ $message }}</p>
                     </div>
                     @endif
-                    <p>{{ $user_info->name }}</p>
-                    <p>{{ $user_info->id }}</p>
-                    <p>{{ $user_info->student_profile->student_id }}</p>
-                    <p>{{ $user_info->student_profile->student_resume }}</p>
-                    <a href="{{ route('student_profile.edit',$user_info->id) }}">Edit</a>
+                    <p><span class="font-bold text-base"> Name:</span> {{ $user_info->name }}</p>
+                    <p><span class="font-bold text-base"> Student ID: </span>{{ $user_info->student_profile->student_id }}</p>
+                    <p><span class="font-bold text-base"> Profile: </span><img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" width="500" height="600"></p>
+                    <a class="text-3xl font-bold underline" href="{{ route('student_profile.edit',$user_info->id) }}">Edit</a>
                     {{-- change image name --}}
                 </div>
             </div>

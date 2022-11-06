@@ -34,13 +34,19 @@ class StudentProfileController extends Controller
         $request->validate([
             'name' => 'required',
             'student_id' => 'numeric|required',
-            //'image' => ['required', 'mimes:png,jpg,jpeg', 'max:5048']
+            'profile' => 'required|image',
         ]);
 
         $user = User::with('student_profile')->find($user_id);
         $user->name = $request['name'];
         $user->student_profile->student_id = $request['student_id'];
+        $profile_file_name = $user_id .= $request->file('profile')->getClientOriginalName();
+        $user->student_profile->student_photo = $profile_file_name;
+        $user->student_profile->student_resume = "";
         $user->push();
+
+        //store files
+        $request->file('profile')->storeAs('profile', $profile_file_name);
 
         return redirect()->route('student_profile.index')->with('success', 'Profile created successfully.');
     }
