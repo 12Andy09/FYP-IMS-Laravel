@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Internship;
 use App\Models\User;
-use App\Models\Student_Profile;
+use App\Enums\ApplicationStatusEnum;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
+
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -38,7 +43,22 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'application_details' => 'required',
+            'internship_id' => 'required',
+        ]);
+
+        DB::table('applications')->insert([
+            'user_id' => Auth::user()->id,
+            'internship_id' => $request->input('internship_id'),
+            'application_details' => $request->input('application_details'),
+            'application_status' => ApplicationStatusEnum::WAITING_ADMIN,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        return redirect()->route('student_dashboard')
+            ->with('success', 'Applied for internship, please wait for the respond');
+
     }
 
     /**

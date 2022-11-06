@@ -18,12 +18,12 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->string('job_position');
-            $table->string('job_description');
+            $table->text('job_description', 65535);
             $table->string('job_requirement');
             $table->unsignedBigInteger('internship_category_id');
             $table->string('job_location');
             $table->string('job_duration');
-            $table->string('company_overview');
+            $table->text('company_overview', 65535);
             
             
             $table->index("user_id");

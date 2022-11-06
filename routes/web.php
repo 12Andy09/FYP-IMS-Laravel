@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\ApplicationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;

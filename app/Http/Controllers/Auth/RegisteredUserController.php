@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'student_id' => null,
                 'student_education' => '',
-                'student_image' => '',
+                'student_photo' => '',
                 'student_resume' => '',
                 'student_aboutMe' => '',
                 'student_status' => '',

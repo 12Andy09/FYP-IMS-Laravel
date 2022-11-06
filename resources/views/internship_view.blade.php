@@ -4,8 +4,18 @@
             {{ __('View Internship') }}
         </h2>
     </x-slot>
-
+   
     <div class="py-12 sm:px-12 grid">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="md:w-4/5 flex bg-white overflow-hidden shadow-sm mx-auto grid grid-cols-2">
             <div class="p-4">
                 <img class="h-24" src="/images/download.png" alt="image">
@@ -58,16 +68,31 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-6 space-y-6">
+                        <input type="hidden" name="internship_id" value="{{ $internship->id }}">
                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                            User ID: {{ Auth()->user()->id }}
                         </p>
                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                            Internship ID: {{ $internship->id }}
                         </p>
+                        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            <x-input-label for="application_details" class="font-bold text-base" :value="__('Application Details (300 characters limit)')" />
+
+                            <textarea
+                                type="text"
+                                rows="5"
+                                class="w-full rounded resize-none"
+                                maxlength="300"
+                                placeholder="Why are you best suited in this role? Include attractive skills that will impress and contribute in the company hiring"
+                                name="application_details"
+                                id="application_details" required></textarea>
+            
+                            <x-input-error :messages="$errors->get('application_details')" class="mt-2" />
+                        </div>
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit Application</button>
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit Application</button>
                         <button data-modal-toggle="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
                     </div>
                 </form>

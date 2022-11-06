@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('student_id')->references('id')->on('student_profile');
-            $table->foreign('internship_id')->references('id')->on('internships');
-            $table->string('application_details');
-            $table->enum('application_status', ['waiting_company', 'waiting_admin', 'doing', 'completed']);
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('internship_id')->constrained('internships');
+            $table->string('application_details', '300');
+            $table->string('application_status');
             $table->timestamps();
         });
     }

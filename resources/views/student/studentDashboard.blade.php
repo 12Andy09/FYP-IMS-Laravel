@@ -28,6 +28,7 @@
         <div class="grid grid-cols-4 gap-0">
             <div class="md:w-full sm:px-6 md:px-24 col-span-3">
                 <div class="bg-white overflow-hidden 2xl:w-3/5 shadow-sm mx-auto">
+                    
                     @forelse ($internships as $internship)
                     <div>
                         <a href="/view/internship/{{$internship->id}}" class="lg:grid lg:grid-cols-4 md:flex-row md:flex md:flex-col sm:flex-row sm:flex sm:flex-col items-center mb-5 group"> 
