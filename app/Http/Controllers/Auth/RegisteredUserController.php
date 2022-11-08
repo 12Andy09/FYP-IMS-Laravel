@@ -38,6 +38,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required'],
         ]);
 
         $user = User::create([
@@ -53,7 +54,7 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'student_id' => null,
                 'student_education' => '',
-                'student_image' => '',
+                'student_photo' => 'default_profile.png',
                 'student_resume' => '',
                 'student_aboutMe' => '',
                 'student_status' => '',

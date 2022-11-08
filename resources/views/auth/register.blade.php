@@ -50,7 +50,14 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <input type="hidden" name="role" value="student">
+            <div class="mt-4">
+            <p>Register As:</p>
+            <input type="radio" id="student" name="role" value="student">
+            <label for="student">Student</label>
+            <input type="radio" id="company" name="role" value="company">
+            <label for="company">Company</label><br>
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">

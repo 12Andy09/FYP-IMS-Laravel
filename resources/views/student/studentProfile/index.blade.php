@@ -1,3 +1,25 @@
+<script type="text/javascript">
+      
+    $(document).ready(function (e) {
+     
+       
+       $('#image').change(function(){
+                
+        let reader = new FileReader();
+     
+        reader.onload = (e) => { 
+     
+          $('#preview-image-before-upload').attr('src', e.target.result); 
+        }
+     
+        reader.readAsDataURL(this.files[0]); 
+       
+       });
+       
+    });
+     
+</script>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -8,17 +30,20 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                @if ($message = Session::get('success'))
+                <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+                    <p>{{ $message }}</p>
+                </div>
+                @endif
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                    @endif
+                    <p><span class="font-bold text-base"> Profile: </span><img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" width="200" height="200"></p>
                     <p><span class="font-bold text-base"> Name:</span> {{ $user_info->name }}</p>
                     <p><span class="font-bold text-base"> Student ID: </span>{{ $user_info->student_profile->student_id }}</p>
-                    <p><span class="font-bold text-base"> Profile: </span><img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" width="500" height="600"></p>
+                    <p><span class="font-bold text-base"> Email: </span>{{ $user_info->email }}</p>
+                    <p><span class="font-bold text-base"> Education: </span>{{ $user_info->student_profile->student_education }}</p>
+                    <p><span class="font-bold text-base"> View Resume: </span> View </p>
+                    <p><span class="font-bold text-base"> AboutMe: </span>{{ $user_info->student_profile->student_aboutMe }}</p>
                     <a class="text-3xl font-bold underline" href="{{ route('student_profile.edit',$user_info->id) }}">Edit</a>
-                    {{-- change image name --}}
                 </div>
             </div>
         </div>

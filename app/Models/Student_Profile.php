@@ -16,7 +16,7 @@ class Student_Profile extends Model
         'user_id',
         'student_id',
         'student_education',
-        'student_profile',
+        'student_photo',
         'student_resume',
         'student_aboutMe',
         'student_status',
