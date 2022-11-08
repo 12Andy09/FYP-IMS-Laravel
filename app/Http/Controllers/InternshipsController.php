@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Internship;
 use App\Models\User;
 use App\Models\InternshipCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,7 @@ class InternshipsController extends Controller
     {
         //link to index page
         return view('internships.index')
-            ->with('internships', Internship::orderBy('updated_at','DESC')->paginate(10));
+            ->with('internships', Internship::orderBy('updated_at', 'DESC')->paginate(10));
     }
     /**
      * Write code on Method
@@ -71,9 +72,8 @@ class InternshipsController extends Controller
     public function edit(Internship $internship)
     {
         return view('internships.edit')
-            ->with('internship',$internship)
+            ->with('internship', $internship)
             ->with('categories', InternshipCategory::all());
-        
     }
     /**
      * Show the form for creating a new resource.
@@ -98,7 +98,7 @@ class InternshipsController extends Controller
         $internship->update($input);
 
         return redirect()->route('internships.index')
-            ->with('success','Internship changed');;
+            ->with('success', 'Internship changed');;
     }
 
     /**
@@ -110,14 +110,18 @@ class InternshipsController extends Controller
     {
         Internship::find($id)->delete();
         return redirect()->route('internships.index')
-            ->with('success','Internship deleted');
+            ->with('success', 'Internship deleted');
     }
 
     public function view($id)
     {
+        $user_id = User::with('student_profile')->find(Auth::user()->id);
+        $user_profile_complete = $user_id->student_profile->profile_complete;
+
         $internship = Internship::find($id);
         return view('internship_view')
-            ->with('internship',$internship)
+            ->with('internship', $internship)
+            ->with('user_permit', $user_profile_complete)
             ->with('category', InternshipCategory::find($internship->internship_category_id));
     }
 }

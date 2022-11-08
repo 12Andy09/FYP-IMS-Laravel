@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('student_resume')->nullable();
             $table->string('student_aboutMe')->nullable();
             $table->string('student_status')->nullable();
+            $table->enum('profile_complete', ['incomplete', 'completed']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

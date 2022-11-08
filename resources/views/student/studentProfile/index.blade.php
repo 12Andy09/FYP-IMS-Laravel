@@ -1,25 +1,3 @@
-<script type="text/javascript">
-      
-    $(document).ready(function (e) {
-     
-       
-       $('#image').change(function(){
-                
-        let reader = new FileReader();
-     
-        reader.onload = (e) => { 
-     
-          $('#preview-image-before-upload').attr('src', e.target.result); 
-        }
-     
-        reader.readAsDataURL(this.files[0]); 
-       
-       });
-       
-    });
-     
-</script>
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -30,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @if ($message = Session::get('success'))
+                @if ($message = Session::get('edited'))
                 <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
                     <p>{{ $message }}</p>
                 </div>
@@ -43,7 +21,7 @@
                     <p><span class="font-bold text-base"> Education: </span>{{ $user_info->student_profile->student_education }}</p>
                     <p><span class="font-bold text-base"> View Resume: </span> View </p>
                     <p><span class="font-bold text-base"> AboutMe: </span>{{ $user_info->student_profile->student_aboutMe }}</p>
-                    <a class="text-3xl font-bold underline" href="{{ route('student_profile.edit',$user_info->id) }}">Edit</a>
+                    <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="{{ route('student_profile.edit',$user_info->id) }}">Edit</a>
                 </div>
             </div>
         </div>
