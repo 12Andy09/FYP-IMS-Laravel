@@ -12,14 +12,35 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    @can('isAdmin')
+                    <x-nav-link :href="route('admin_dashboard')" :active="request()->routeIs('admin_dashboard')">
+                        Dashboard
                     </x-nav-link>
-                    <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships')">
-                        {{ __('Internship') }}
+                    @endcan
+
+                    @can('isSupervisor')
+                    <x-nav-link :href="route('supervisor_dashboard')" :active="request()->routeIs('supervisor_dashboard')">
+                        Dashboard
                     </x-nav-link>
-                </div>
-                
+                    @endcan
+
+                    @can('isCompany')
+                    <x-nav-link :href="route('company_dashboard')" :active="request()->routeIs('company_dashboard')">
+                        Dashboard
+                    </x-nav-link>
+                    @endcan
+
+                    {{-- student permissions --}}
+                    @can('isStudent')
+                    <x-nav-link :href="route('student_dashboard')" :active="request()->routeIs('student_dashboard')">
+                        Dashboard
+                    </x-nav-link>
+                    <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
+                        My Profile
+                    </x-nav-link>              
+                    @endcan
+                </div>        
+
             </div>
 
             <!-- Settings Dropdown -->

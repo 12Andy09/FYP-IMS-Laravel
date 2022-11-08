@@ -32,8 +32,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        $user = Auth::user();
 
-        return $this->checkRole();
+        return redirect("/{$user->role}/dashboard");
     }
 
     /**
@@ -51,20 +52,5 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
-    }
-
-    private function checkRole()
-    {
-        $id = User::find(Auth::id());
-        $role = $id->role;
-        if ($role == "admin") {
-            return redirect()->intended('/admin/dashboard');
-        } elseif ($role == 'student') {
-            return redirect()->intended('/student/dashboard');
-        } elseif ($role == 'company') {
-            return redirect()->intended('/company/dashboard');
-        } else {
-            return redirect()->intended('/supervisor/dashboard');
-        }
     }
 }
