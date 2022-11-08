@@ -28,7 +28,6 @@ class InternshipsController extends Controller
         return view('internships.index')
             ->with('internships', Internship::orderBy('updated_at','DESC')->paginate(10));
     }
-
     /**
      * Write code on Method
      *
@@ -114,9 +113,11 @@ class InternshipsController extends Controller
             ->with('success','Internship deleted');
     }
 
-    // public function view($id)
-    // {
-    //     $internships = Internship::find($id);
-    //     return Inertia::render('Internship_View', ['internships' => $internships]);
-    // }
+    public function view($id)
+    {
+        $internship = Internship::find($id);
+        return view('internship_view')
+            ->with('internship',$internship)
+            ->with('category', InternshipCategory::find($internship->internship_category_id));
+    }
 }

@@ -16,6 +16,9 @@
                     <x-nav-link :href="route('admin_dashboard')" :active="request()->routeIs('admin_dashboard')">
                         Dashboard
                     </x-nav-link>
+                    <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships')">
+                        {{ __('Internship Applications') }}
+                    </x-nav-link>
                     @endcan
 
                     @can('isSupervisor')

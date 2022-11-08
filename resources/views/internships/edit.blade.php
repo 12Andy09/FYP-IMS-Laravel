@@ -15,7 +15,7 @@
                             <div>
                                 <x-input-label for="job_position" class="text-xl" :value="__('Internship Position')" />
                 
-                                <x-text-input id="job_position" class="w-full px-4 py-2" type="job_position" name="job_position" :value='$internship->job_position' required autofocus />
+                                <x-text-input id="job_position" class="w-full px-4 py-2" type="job_position" name="job_position" :value='$internship->job_position' required />
                 
                                 <x-input-error :messages="$errors->get('job_position')" class="mt-2" />
                             </div>         
@@ -26,7 +26,7 @@
                                                 type="job_requirement"
                                                 name="job_requirement"
                                                 :value='$internship->job_requirement'
-                                                required autofocus/>
+                                                required/>
                 
                                 <x-input-error :messages="$errors->get('job_requirement')" class="mt-2" />
                             </div>     
@@ -37,7 +37,7 @@
                                                 type="job_location"
                                                 name="job_location"
                                                 :value='$internship->job_location'
-                                                required autofocus/>
+                                                required/>
                 
                                 <x-input-error :messages="$errors->get('job_requirement')" class="mt-2" />
                             </div>      

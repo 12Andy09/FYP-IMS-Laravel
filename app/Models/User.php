@@ -43,8 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $touches = ['student_profile'];
     public function student_profile()
     {
         return $this->hasOne(Student_Profile::class);
+    }
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+        ];
     }
 }

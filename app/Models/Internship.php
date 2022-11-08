@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 
 class Internship extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
     protected $fillable = [
         'job_position',
         'job_description',
@@ -19,6 +20,7 @@ class Internship extends Model
         'company_overview',
         'user_id',
     ];
+    protected $touches = ['category', 'user'];
 
     public function user(): BelongsTo
     {
@@ -29,14 +31,22 @@ class Internship extends Model
     {
         return $this -> belongsTo(InternshipCategory::class, 'internship_category_id', 'id');
     }
-    protected $with = ['category', 'user'];
-
+    
     public function getLinksAttribute(){
         return [
             'view' => action(
                 [Internships::class, 'view'],
                 $this->id
             ),
+        ];
+    }
+    
+    public function toSearchableArray()
+    {
+        return [
+            'job_position' => $this->job_position,
+            'job_location' => $this->job_location,
+            'company_overview' => $this->company_overview,
         ];
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\ApplicationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
+use App\Models\Internship;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +17,13 @@ use App\Http\Controllers\InternshipsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::resource('internships', InternshipsController::class);
+Route::resource('applications', ApplicationController::class);
+Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::resource('student_profile', StudentProfileController::class);
+Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('Company/CompanyDashboard');
     })->middleware('can:isCompany')->name('company_dashboard');
 
-    Route::get('/student/dashboard', function () {
+    Route::get('/student/dashboard', [StudentDashboardController::class,'lists'], function () {
         return view('Student/StudentDashboard');
     })->middleware('can:isStudent')->name('student_dashboard');
 

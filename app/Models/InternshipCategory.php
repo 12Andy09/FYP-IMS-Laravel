@@ -18,4 +18,5 @@ class InternshipCategory extends Model
     {
         return $this->hasMany(Internship::class, 'internship_category_id');
     }
+    
 }
