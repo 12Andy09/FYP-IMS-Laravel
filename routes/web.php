@@ -18,12 +18,17 @@ use App\Models\Internship;
 |
 */
 
-Route::resource('internships', InternshipsController::class);
+Route::resource('internships', InternshipsController::class)->middleware('can:isAdmin');
 Route::resource('applications', ApplicationController::class);
+Route::resource('student_profile', StudentProfileController::class);
+
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
-Route::resource('student_profile', StudentProfileController::class);
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
+
+Route::get('/admin/view-students', [ApplicationController::class,'index'],function () {
+    return view('Admin/view_student_status');
+})->name('view_student_status');
 
 Route::get('/', function () {
     return view('welcome');

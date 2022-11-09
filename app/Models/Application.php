@@ -19,13 +19,4 @@ class Application extends Model
         'application_details', 
         'application_status', 
     ];
-
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    protected $casts = [
-        'application_status' => ApplicationStatusEnum::class
-    ];
 }

@@ -19,7 +19,7 @@
                     class="block lg:w-3/5 p-4 pl-10 w-3/5 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Position, Location, or Company Overview" 
                     aria-label="Search" 
-                    aria-describedby="button-addon2">
+                    aria-describedby="button-addon2" required>
                 <button class="ml-8 my-auto h-10 text-white right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" id="button-addon2">Search</button>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     
                 </div>
                 <span>
-                    {{$internships->appends(['search' => request() -> query('search')])->links('pagination::tailwind') }}
+                    {{$applications->links('pagination::tailwind') }}
                 </span>
             </div>
             <div class="">

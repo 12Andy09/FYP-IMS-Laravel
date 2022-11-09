@@ -22,7 +22,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        //link to index page
+        return view('admin.view_student_status')
+            ->with('applications', Application::all());
     }
 
     /**
@@ -67,7 +69,7 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function show(Application $checkoutGoods)
+    public function show(Application $application)
     {
         //
     }
@@ -78,7 +80,7 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function edit(Application $checkoutGoods)
+    public function edit(Application $application)
     {
         //
     }
@@ -101,8 +103,21 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Application $application)
+    public function destroy($id)
     {
-        //
+        Application::find($id)->delete();
+        return redirect()->route('admin.view_student_status')
+            ->with('success', 'Status rejected');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Application  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function view_status(){
+
+    }
+
 }
