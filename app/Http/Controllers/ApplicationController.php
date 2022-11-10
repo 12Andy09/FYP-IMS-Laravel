@@ -25,6 +25,7 @@ class ApplicationController extends Controller
         //link to index page
         return view('admin.view_student_status')
             ->with('applications', Application::all());
+            // ->with('applications', Application::orderBy('updated_at', 'DESC')->paginate(10));
     }
 
     /**

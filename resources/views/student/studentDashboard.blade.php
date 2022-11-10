@@ -61,7 +61,7 @@
                     
                 </div>
                 <span>
-                    {{$applications->links('pagination::tailwind') }}
+                    {{$internships->appends(['search' => request() -> query('search')])->links('pagination::tailwind') }}
                 </span>
             </div>
             <div class="">

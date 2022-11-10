@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             InternshipCategorySeeder::class,
             InternshipsSeeder::class,
             UserSeeder::class,
+            ApplicationsSeeder::class,
 
         ]);
     }
