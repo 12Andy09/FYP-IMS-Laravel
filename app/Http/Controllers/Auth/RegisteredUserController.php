@@ -58,6 +58,7 @@ class RegisteredUserController extends Controller
                 'student_resume' => '',
                 'student_aboutMe' => '',
                 'student_status' => '',
+                'profile_complete' => 'incomplete',
             ]);
         }
 
