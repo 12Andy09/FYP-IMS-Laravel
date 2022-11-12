@@ -95,7 +95,25 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
-        //
+        $input = Validator::make($request->all(), [
+            'application_status' => 'required',
+        ]);
+        $input = $request->all();
+
+        $application->update($input);
+        
+        if($application->application_status == "waiting_admin"){
+            return redirect()->route('view_student_status')
+                ->with('success', 'Student Status Changed to Waiting for Admin Approval');
+        }
+        elseif($application->application_status == "doing"){
+            return redirect()->route('view_student_status')
+                ->with('success', 'Student Status Changed to Ongoing');
+        }
+        elseif($application->application_status == "completed"){
+            return redirect()->route('view_student_status')
+                ->with('success', 'Student Status Changed to Completed');
+        }
     }
 
     /**
@@ -107,7 +125,7 @@ class ApplicationController extends Controller
     public function destroy($id)
     {
         Application::find($id)->delete();
-        return redirect()->route('admin.view_student_status')
+        return redirect()->route('view_student_status')
             ->with('success', 'Status rejected');
     }
 

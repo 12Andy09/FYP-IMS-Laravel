@@ -18,7 +18,7 @@
         @endif
         <div class="md:w-4/5 flex bg-white overflow-hidden shadow-sm mx-auto grid grid-cols-2">
             <div class="p-4">
-                <img class="h-24" src="/profile/5profile.jpg" alt="image">
+                <img class="h-24" src="{{ asset('profile/7default_profile.png')}}" alt="profile">
                 <h5 class="mt-4 text-xl"><strong>{{$internship->job_position}}</strong></h5>
                 <p class="mb-4">{{$internship->category->category_title}}</p>
                 
@@ -70,12 +70,21 @@
                     <!-- Modal body -->
                     <div class="p-6 space-y-6">
                         <input type="hidden" name="internship_id" value="{{ $internship->id }}">
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            User ID: {{ Auth()->user()->id }}
-                        </p>
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            Internship ID: {{ $internship->id }}
-                        </p>
+                        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400 grid grid-cols-5">
+                            <img src="{{ asset('profile/'.Auth()->user()->student_profile->student_photo) }}" width="96" height="96" alt="Profile">
+                            <div class="grid grid-row-2 col-span-4">
+                                <h3 class="text-xl text-blue-600 font-bold">{{ Auth()->user()->name }}</h3>
+                                <ul class="inline-flex">
+                                    <li class="mr-4">Student ID: @if(Auth()->user()->student_profile->student_id != null){{ Auth()->user()->student_profile->student_id }} | @else Not Provided | @endif</li>
+                                    <li class="mr-4">Education: @if(Auth()->user()->student_profile->student_education != null){{ Auth()->user()->student_profile->student_education }} | @else Not Provided |@endif</li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            <p>About: @if(Auth()->user()->student_profile->student_aboutMe != null){{ Auth()->user()->student_profile->student_aboutMe }} @else Not Provided @endif</p>
+                            <p>Resume: @if(Auth()->user()->student_profile->student_resume != null){{ Auth()->user()->student_profile->student_resume }}@else Not Provided @endif</p>
+                        </div>
                         <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                             <x-input-label for="application_details" class="font-bold text-base" :value="__('Application Details (300 characters limit)')" />
 
@@ -97,7 +106,7 @@
                     
                     <!-- Modal footer -->
                     <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <button data-modal-toggle="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                        <button data-modal-toggle="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                         @if ($user_permit == "completed")
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit Application</button>
                         @else
