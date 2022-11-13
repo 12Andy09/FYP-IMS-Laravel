@@ -64,6 +64,18 @@ class InternshipsController extends Controller
 
         return redirect()->route('internships.index');
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Internship  $internship
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Internship $internship)
+    {
+        return view('internships.show')
+            ->with('internship', $internship)
+            ->with('categories', InternshipCategory::all());
+    }
 
     /**
      * Write code on Method

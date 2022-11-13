@@ -18,5 +18,18 @@ class Application extends Model
     protected $fillable = [
         'application_details', 
         'application_status', 
+        'user_id',
+        'internship_id',
     ];
+    protected $touches = ['internship', 'user'];
+
+    public function user()
+    {
+        return $this -> hasOne(User::class, 'id','user_id');
+    }
+
+    public function internship()
+    {
+        return $this -> hasOne(Internship::class, 'id', 'internship_id');
+    }
 }

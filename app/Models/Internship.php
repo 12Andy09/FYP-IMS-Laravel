@@ -49,4 +49,9 @@ class Internship extends Model
             'company_overview' => $this->company_overview,
         ];
     }
+
+    public function application(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
 }

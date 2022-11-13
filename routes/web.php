@@ -3,6 +3,7 @@
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\UsersController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
@@ -20,6 +21,7 @@ use App\Models\Internship;
 
 Route::resource('internships', InternshipsController::class)->middleware('can:isAdmin');
 Route::resource('applications', ApplicationController::class);
+Route::resource('users', UsersController::class)->middleware('can:isAdmin');
 Route::resource('student_profile', StudentProfileController::class);
 
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);

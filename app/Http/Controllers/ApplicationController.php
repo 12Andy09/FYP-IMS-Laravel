@@ -15,17 +15,31 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //link to index page
+
+        if($request->filled('search')){
+            $applications = Application::search($request->search)->orderBy('updated_at', 'DESC')->paginate(10);
+        }
+        else{
+            $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
+            $applications_company = Application::where('application_status','waiting_company')->orderByDESC('updated_at')->paginate(10,['*'],'company');
+            $applications_admin = Application::where('application_status','waiting_admin')->orderByDESC('updated_at')->paginate(10,['*'],'admin');
+            $applications_doing = Application::where('application_status','doing')->orderByDESC('updated_at')->paginate(10,['*'],'doing');
+            $applications_completed = Application::where('application_status','completed')->orderByDESC('updated_at')->paginate(10,['*'],'completed');
+        }
         return view('admin.view_student_status')
-            ->with('applications', Application::all());
-            // ->with('applications', Application::orderBy('updated_at', 'DESC')->paginate(10));
+            // ->with('applications', Application::all());
+            ->with('applications', $applications)
+            ->with('applications_company', $applications_company, 'message', 'company_changed')
+            ->with('applications_admin',$applications_admin, 'success', 'admin_changed')
+            ->with('applications_doing',$applications_doing)
+            ->with('applications_completed',$applications_completed);
     }
 
     /**

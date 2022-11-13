@@ -8,11 +8,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @if ($message = Session::get('edited'))
-                <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
-                    <p>{{ $message }}</p>
-                </div>
-                @endif
                 <div class="p-6 bg-white border-b border-gray-200">
                     <p><span class="font-bold text-base"> Profile: </span><img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" width="200" height="200"></p>
                     <p><span class="font-bold text-base"> Name:</span> {{ $user_info->name }}</p>
