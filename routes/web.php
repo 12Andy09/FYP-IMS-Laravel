@@ -28,16 +28,12 @@ Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
 
-Route::get('/admin/view-students', [ApplicationController::class,'index'],function () {
-    return view('Admin/view_student_status');
-})->name('view_student_status');
-
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 //Auth
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/admin/dashboard', function () {
+    Route::get('/admin/dashboard', [ApplicationController::class,'index'], function () {
         return view('Admin/AdminDashboard');
     })->middleware('can:isAdmin')->name('admin_dashboard');
 

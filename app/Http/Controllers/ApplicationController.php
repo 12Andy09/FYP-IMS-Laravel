@@ -33,11 +33,11 @@ class ApplicationController extends Controller
             $applications_doing = Application::where('application_status','doing')->orderByDESC('updated_at')->paginate(10,['*'],'doing');
             $applications_completed = Application::where('application_status','completed')->orderByDESC('updated_at')->paginate(10,['*'],'completed');
         }
-        return view('admin.view_student_status')
+        return view('admin.adminDashboard')
             // ->with('applications', Application::all());
             ->with('applications', $applications)
-            ->with('applications_company', $applications_company, 'message', 'company_changed')
-            ->with('applications_admin',$applications_admin, 'success', 'admin_changed')
+            ->with('applications_company', $applications_company)
+            ->with('applications_admin',$applications_admin)
             ->with('applications_doing',$applications_doing)
             ->with('applications_completed',$applications_completed);
     }
@@ -117,15 +117,15 @@ class ApplicationController extends Controller
         $application->update($input);
         
         if($application->application_status == "waiting_admin"){
-            return redirect()->route('view_student_status')
+            return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Waiting for Admin Approval');
         }
         elseif($application->application_status == "doing"){
-            return redirect()->route('view_student_status')
+            return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Ongoing');
         }
         elseif($application->application_status == "completed"){
-            return redirect()->route('view_student_status')
+            return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Completed');
         }
     }
@@ -139,7 +139,7 @@ class ApplicationController extends Controller
     public function destroy($id)
     {
         Application::find($id)->delete();
-        return redirect()->route('view_student_status')
+        return redirect()->route('admin_dashboard')
             ->with('success', 'Status rejected');
     }
 

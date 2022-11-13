@@ -73,7 +73,7 @@ class StudentProfileController extends Controller
 
         $this->checkProfileComplete($user->student_profile);
 
-        return redirect()->route('student_profile.index')->with('edited', 'Profile Edit successfully.');
+        return redirect()->route('student_profile.index')->with('success', 'Profile Edit successfully.');
     }
 
     private function checkProfileComplete(Student_Profile $profile)
