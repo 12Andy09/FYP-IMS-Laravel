@@ -24,6 +24,8 @@ Route::resource('applications', ApplicationController::class);
 Route::resource('users', UsersController::class)->middleware('can:isAdmin');
 Route::resource('student_profile', StudentProfileController::class);
 
+Route::get('/view/student_profile/{id}', [InternshipsController::class, 'index'])
+    ->where('id', '[0-9]');
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
@@ -33,7 +35,7 @@ Route::get('/', function () {
 })->name('welcome');
 //Auth
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/admin/dashboard', [ApplicationController::class,'index'], function () {
+    Route::get('/admin/dashboard', [ApplicationController::class, 'index'], function () {
         return view('Admin/AdminDashboard');
     })->middleware('can:isAdmin')->name('admin_dashboard');
 
@@ -41,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('Company/CompanyDashboard');
     })->middleware('can:isCompany')->name('company_dashboard');
 
-    Route::get('/student/dashboard', [StudentDashboardController::class,'lists'], function () {
+    Route::get('/student/dashboard', [StudentDashboardController::class, 'lists'], function () {
         return view('Student/StudentDashboard');
     })->middleware('can:isStudent')->name('student_dashboard');
 

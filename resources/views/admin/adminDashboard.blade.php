@@ -93,7 +93,7 @@
                             @foreach ($applications_admin as $application)
                             @if ($application->application_status=="waiting_admin")
                                 <tr>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('users.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('student_profile.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('internships.show', $application->internship_id) }}" target="_blank">{{ $application->internship_id }}-{{ $application->internship->job_position }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2">{{ $application->application_details }}</td>
                                     <td class="border px-4 py-2">

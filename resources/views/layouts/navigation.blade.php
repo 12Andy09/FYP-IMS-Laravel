@@ -40,7 +40,10 @@
                     </x-nav-link>
                     <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
                         My Profile
-                    </x-nav-link>              
+                    </x-nav-link>
+                    <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
+                        My Application
+                    </x-nav-link>                    
                     @endcan
                 </div>        
 

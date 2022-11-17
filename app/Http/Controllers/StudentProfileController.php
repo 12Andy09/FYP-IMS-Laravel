@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
+
+use function PHPUnit\Framework\isEmpty;
 
 class StudentProfileController extends Controller
 {
@@ -17,7 +20,6 @@ class StudentProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:isStudent');
     }
 
     public function index()
@@ -27,8 +29,25 @@ class StudentProfileController extends Controller
         return view('Student.studentProfile.index', ['user_info' => $user_info]);
     }
 
+    public function show($id = null)
+    {
+        if (!is_null($id)) {
+            $user_info = User::find($id);
+        } else {
+            $user_info = User::find(Auth::user()->id);
+        }
+        return view('Student.studentProfile.index', ['user_info' => $user_info]);
+    }
+
     public function edit($user_id)
     {
+        if ((Gate::allows('isAdmin') or Gate::allows('isStudent'))) {
+            if (Auth::id() != $user_id and !Gate::allows('isAdmin')) {
+                abort(403);
+            }
+        } else {
+            abort(403);
+        }
         $user_info = User::with('student_profile')->find($user_id);
         return view('Student.studentProfile.edit', ['user_info' => $user_info]);
     }
@@ -42,12 +61,17 @@ class StudentProfileController extends Controller
             'student_id' => ['numeric', Rule::unique('student_profile', 'student_id')->ignore($user->student_profile->student_id, 'student_id'), 'nullable'],
             'profile' => 'image',
             'resume' => 'mimes:pdf|max:10000',
+            'aboutMe' => 'max:65000',
         ]);
 
         $user->name = $request['name'];
         $user->student_profile->student_id = $request['student_id'];
         $user->student_profile->student_education = $request['education'];
         $user->student_profile->student_aboutMe = $request['aboutMe'];
+
+        if (!is_null($request['email'])) {
+            $user->email = $request['email'];
+        }
 
         //if uploaded profile != null
         if ($request->hasFile('profile')) {
@@ -73,7 +97,7 @@ class StudentProfileController extends Controller
 
         $this->checkProfileComplete($user->student_profile);
 
-        return redirect()->route('student_profile.index')->with('success', 'Profile Edit successfully.');
+        return redirect()->route('student_profile.show', $user_id)->with('success', 'Profile Edit successfully.');
     }
 
     private function checkProfileComplete(Student_Profile $profile)
