@@ -69,7 +69,7 @@ class ApplicationController extends Controller
             'user_id' => Auth::user()->id,
             'internship_id' => $request->input('internship_id'),
             'application_details' => $request->input('application_details'),
-            'application_status' => ApplicationStatusEnum::WAITING_ADMIN,
+            'application_status' => ApplicationStatusEnum::WAITING_COMPANY,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

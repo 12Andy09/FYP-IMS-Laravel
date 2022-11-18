@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('student_education')->nullable();
             $table->string('student_photo')->nullable();
             $table->string('student_resume')->nullable();
-            $table->longText('student_aboutMe')->nullable();
+            $table->longText('student_aboutMe', 65535)->nullable();
             $table->string('student_status')->nullable();
             $table->enum('profile_complete', ['incomplete', 'completed']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
