@@ -24,7 +24,7 @@ Route::resource('applications', ApplicationController::class);
 Route::resource('users', UsersController::class)->middleware('can:isAdmin');
 Route::resource('student_profile', StudentProfileController::class);
 
-Route::get('/view/student_profile/{id}', [InternshipsController::class, 'index'])
+Route::get('/view/student_profile/{id}', [StudentProfileController::class, 'index'])
     ->where('id', '[0-9]');
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 

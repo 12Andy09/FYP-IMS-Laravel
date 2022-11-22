@@ -41,9 +41,9 @@
                     <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
                         My Profile
                     </x-nav-link>
-                    <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
+                    <x-nav-link :href="route('applications.show',Auth::id())" :active="request()->routeIs('applications.show')">
                         My Application
-                    </x-nav-link>                    
+                    </x-nav-link>   
                     @endcan
                 </div>        
 

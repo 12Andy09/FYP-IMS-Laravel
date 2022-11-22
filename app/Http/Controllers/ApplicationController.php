@@ -22,24 +22,22 @@ class ApplicationController extends Controller
      */
     public function index(Request $request)
     {
-
-        if($request->filled('search')){
+        if ($request->filled('search')) {
             $applications = Application::search($request->search)->orderBy('updated_at', 'DESC')->paginate(10);
-        }
-        else{
+        } else {
             $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
-            $applications_company = Application::where('application_status','waiting_company')->orderByDESC('updated_at')->paginate(10,['*'],'company');
-            $applications_admin = Application::where('application_status','waiting_admin')->orderByDESC('updated_at')->paginate(10,['*'],'admin');
-            $applications_doing = Application::where('application_status','doing')->orderByDESC('updated_at')->paginate(10,['*'],'doing');
-            $applications_completed = Application::where('application_status','completed')->orderByDESC('updated_at')->paginate(10,['*'],'completed');
+            $applications_company = Application::where('application_status', 'waiting_company')->orderByDESC('updated_at')->paginate(10, ['*'], 'company');
+            $applications_admin = Application::where('application_status', 'waiting_admin')->orderByDESC('updated_at')->paginate(10, ['*'], 'admin');
+            $applications_doing = Application::where('application_status', 'doing')->orderByDESC('updated_at')->paginate(10, ['*'], 'doing');
+            $applications_completed = Application::where('application_status', 'completed')->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
         }
         return view('admin.adminDashboard')
             // ->with('applications', Application::all());
             ->with('applications', $applications)
             ->with('applications_company', $applications_company)
-            ->with('applications_admin',$applications_admin)
-            ->with('applications_doing',$applications_doing)
-            ->with('applications_completed',$applications_completed);
+            ->with('applications_admin', $applications_admin)
+            ->with('applications_doing', $applications_doing)
+            ->with('applications_completed', $applications_completed);
     }
 
     /**
@@ -75,7 +73,6 @@ class ApplicationController extends Controller
         ]);
         return redirect()->route('student_dashboard')
             ->with('success', 'Applied for internship, please wait for the respond');
-
     }
 
     /**
@@ -84,9 +81,24 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function show(Application $application)
+    //show for student only
+    public function show()
     {
-        //
+        $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
+        $applications_student = Application::where([
+            ['application_status', '!=', 'completed'],
+            ['user_id', '=', Auth::id()]
+        ])->orderByDESC('updated_at')->paginate(10, ['*'], 'waiting');
+
+        $applications_completed = Application::where([
+            ['application_status', 'completed'],
+            ['user_id', Auth::id()]
+        ])->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
+        return view('student.studentApplication')
+            // ->with('applications', Application::all());
+            ->with('applications', $applications)
+            ->with('applications_student', $applications_student)
+            ->with('applications_completed', $applications_completed);
     }
 
     /**
@@ -115,16 +127,14 @@ class ApplicationController extends Controller
         $input = $request->all();
 
         $application->update($input);
-        
-        if($application->application_status == "waiting_admin"){
+
+        if ($application->application_status == "waiting_admin") {
             return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Waiting for Admin Approval');
-        }
-        elseif($application->application_status == "doing"){
+        } elseif ($application->application_status == "doing") {
             return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Ongoing');
-        }
-        elseif($application->application_status == "completed"){
+        } elseif ($application->application_status == "completed") {
             return redirect()->route('admin_dashboard')
                 ->with('success', 'Student Status Changed to Completed');
         }
@@ -149,8 +159,4 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $id
      * @return \Illuminate\Http\Response
      */
-    public function view_status(){
-
-    }
-
 }

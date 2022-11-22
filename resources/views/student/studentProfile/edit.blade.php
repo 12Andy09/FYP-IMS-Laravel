@@ -41,10 +41,29 @@
                   <div class="w-full lg:w-4/12 px-4 lg:order-1">
                   </div>
                 </div>
+                <div class="">
+                  <div class="max-w-7xl mx-auto sm:px-6 lg:px-6">
+                    {{-- errors message --}}
+                      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                          @if ($errors->any())
+                          <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                              <p class="text-danger">Errors</p>
+                          </div>
+                          <ul class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                              @foreach ($errors->all() as $error)
+                                  <li>
+                                      {{ $error }}
+                                  </li>
+                              @endforeach
+                          </ul>
+                          @endif
+                      </div>
+                  </div>
+              </div>
                 <div class="text-center mt-12">
                     <p class="text-lg underline text-blueGray-600 font-normal my-5">
                         <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
-                        <label for="profile">Click me to upload profile</label>
+                        <label for="profile" class="cursor-pointer">Click me to upload profile</label>
                     </p>
                   <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
                     <strong class="text-xl">Name:</strong>
@@ -86,7 +105,7 @@
                   </div>
                   <div class="text-lg text-center text-black underline font-bold">
                   <input type="file" name="resume" id='resume' class='hidden'/>
-                  <label for="resume" id='resume_text'>Click me to upload resume</label>
+                  <label for="resume" id='resume_text' class="cursor-pointer">Click me to upload resume</label>
                   </div>
                 </div>
                 <div class="text-center mt-12">
