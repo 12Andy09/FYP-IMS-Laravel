@@ -32,7 +32,7 @@ class StudentProfileController extends Controller
     public function show($id = null)
     {
         if (!is_null($id)) {
-            User::find($id) ? $user_info = User::find($id) : abort(404);
+            (User::find($id) && User::find($id)->role == "student") ? $user_info = User::find($id) : abort(404);
         } else {
             $user_info = User::find(Auth::user()->id);
         }

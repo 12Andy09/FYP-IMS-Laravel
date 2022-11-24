@@ -41,7 +41,7 @@
                             @foreach ($applications_company as $application)
                             @if ($application->application_status=="waiting_company")
                                 <tr>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('users.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('student_profile.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('internships.show', $application->internship_id) }}" target="_blank">{{ $application->internship_id }}-{{ $application->internship->job_position }}-{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-2">{{ $application->application_details }}</td>
                                     <td class="border px-4 py-2">
@@ -142,7 +142,7 @@
                             @foreach ($applications_doing as $application)
                             @if ($application->application_status=="doing")
                                 <tr>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('users.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('student_profile.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('internships.show', $application->internship_id) }}" target="_blank">{{ $application->internship_id }}-{{ $application->internship->job_position }}-{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-8">{{ $application->application_details }}</td>
                                     <td class="border px-4 py-8">
@@ -189,7 +189,7 @@
                             @foreach ($applications_completed as $application)
                             @if ($application->application_status=="completed")
                                 <tr>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('users.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('student_profile.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('internships.show', $application->internship_id) }}" target="_blank">{{ $application->internship_id }}-{{ $application->internship->job_position }}-{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-10">{{ $application->application_details }}</td>
                                 </tr>

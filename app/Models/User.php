@@ -54,4 +54,8 @@ class User extends Authenticatable
             'name' => $this->name,
         ];
     }
+    public function company_profile()
+    {
+        return $this->hasOne(Company_Profile::class);
+    }
 }

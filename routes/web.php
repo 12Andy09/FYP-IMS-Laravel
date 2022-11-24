@@ -3,6 +3,7 @@
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\UsersController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,11 @@ use App\Models\Internship;
 |
 */
 
-Route::resource('internships', InternshipsController::class)->middleware('can:isAdmin');
+Route::resource('internships', InternshipsController::class);
 Route::resource('applications', ApplicationController::class);
 Route::resource('users', UsersController::class)->middleware('can:isAdmin');
 Route::resource('student_profile', StudentProfileController::class);
+Route::resource('company_profile', CompanyProfileController::class);
 
 Route::get('/view/student_profile/{id}', [StudentProfileController::class, 'index'])
     ->where('id', '[0-9]');
@@ -39,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('Admin/AdminDashboard');
     })->middleware('can:isAdmin')->name('admin_dashboard');
 
-    Route::get('/company/dashboard', function () {
+    Route::get('/company/dashboard', [ApplicationController::class, 'index'], function () {
         return view('Company/CompanyDashboard');
     })->middleware('can:isCompany')->name('company_dashboard');
 

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\InternshipCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +17,7 @@ class InternshipsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        abort_if(Gate::allows('isStudent'), 403);
     }
 
 
@@ -26,9 +28,13 @@ class InternshipsController extends Controller
      */
     public function index()
     {
+        if (Gate::allows('isAdmin')) $internships_list = Internship::orderBy('updated_at', 'DESC')->paginate(10);
+        if (Gate::allows('isCompany')) {
+            $internships_list = Internship::where('user_id', Auth::id())->orderBy('updated_at', 'DESC')->paginate(10);
+        }
         //link to index page
         return view('internships.index')
-            ->with('internships', Internship::orderBy('updated_at', 'DESC')->paginate(10));
+            ->with('internships', $internships_list);
     }
     /**
      * Write code on Method

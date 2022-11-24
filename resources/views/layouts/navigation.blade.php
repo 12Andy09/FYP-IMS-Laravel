@@ -29,7 +29,13 @@
 
                     @can('isCompany')
                     <x-nav-link :href="route('company_dashboard')" :active="request()->routeIs('company_dashboard')">
-                        Dashboard
+                        Applications
+                    </x-nav-link>
+                    <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships.index')">
+                        Internship Posting
+                    </x-nav-link>
+                    <x-nav-link :href="route('company_profile.index')" :active="request()->routeIs('company_profile.index')">
+                        My Company Profile
                     </x-nav-link>
                     @endcan
 
