@@ -17,7 +17,10 @@
                         Dashboard
                     </x-nav-link>
                     <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships')">
-                        {{ __('Internship Applications') }}
+                        Internships Manage
+                    </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users')">
+                        Users Manage
                     </x-nav-link>
                     @endcan
 
@@ -47,9 +50,9 @@
                     <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
                         My Profile
                     </x-nav-link>
-                    <x-nav-link :href="route('applications.show',Auth::id())" :active="request()->routeIs('applications.show')">
+                    <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('.index')">
                         My Application
-                    </x-nav-link>   
+                    </x-nav-link>                    
                     @endcan
                 </div>        
 
