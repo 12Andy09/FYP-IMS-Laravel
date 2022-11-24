@@ -37,6 +37,7 @@ class ApplicationController extends Controller
                 $applications_admin = Application::where('application_status', 'waiting_admin')->orderByDESC('updated_at')->paginate(10, ['*'], 'admin');
                 $applications_doing = Application::where('application_status', 'doing')->orderByDESC('updated_at')->paginate(10, ['*'], 'doing');
                 $applications_completed = Application::where('application_status', 'completed')->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
+                $applications_rejected = Application::where('application_status', 'rejected')->orderByDESC('updated_at')->paginate(10, ['*'], 'rejected');
             }
             return view('admin.adminDashboard')
                 // ->with('applications', Application::all());
@@ -44,7 +45,8 @@ class ApplicationController extends Controller
                 ->with('applications_company', $applications_company)
                 ->with('applications_admin', $applications_admin)
                 ->with('applications_doing', $applications_doing)
-                ->with('applications_completed', $applications_completed);
+                ->with('applications_completed', $applications_completed)
+                ->with('applications_rejected', $applications_rejected);
         }
         if (Gate::allows('isCompany')) {
             $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
@@ -160,6 +162,9 @@ class ApplicationController extends Controller
         } elseif ($application->application_status == "completed") {
             return redirect()->route('admin_dashboard')
                 ->with('success', 'Application Status Changed to Completed');
+        } elseif ($application->application_status == "rejected") {
+            return redirect()->route('admin_dashboard')
+                ->with('success', 'Application Status Changed to Rejected');
         }
     }
 
@@ -174,7 +179,7 @@ class ApplicationController extends Controller
         $role = Auth::user()->role;
         Application::find($id)->delete();
         return redirect()->route("{$role}_dashboard")
-            ->with('success', 'Application rejected');
+            ->with('success', 'Application destroyed');
     }
 
     /**

@@ -7,4 +7,5 @@ enum ApplicationStatusEnum:string {
     case WAITING_ADMIN = 'waiting_admin';
     case DOING = 'doing';
     case COMPLETED = 'completed';
+    case REJECTED = 'rejected';
 }

@@ -68,7 +68,7 @@ class UsersController extends Controller
                 'student_id' => null,
                 'student_education' => '',
                 'student_photo' => 'default_profile.png',
-                'student_resume' => '',
+                'student_resume' => null,
                 'student_aboutMe' => '',
                 'student_status' => '',
                 'profile_complete' => 'incomplete',

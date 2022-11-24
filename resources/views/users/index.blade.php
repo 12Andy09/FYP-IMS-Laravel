@@ -11,9 +11,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <a href="{{ route('users.create') }}"
-                               class="btn btn-primary float-right">{{ __('Create User') }}</a>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <a href="{{ route('users.create') }}" class="inline-flex items-center h-10 px-6 py-6 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Create User</a>
+                            </div>
                         </div>
                     </div>
                     <table class="table-fixed w-full">

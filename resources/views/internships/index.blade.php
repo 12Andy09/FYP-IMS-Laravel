@@ -14,8 +14,7 @@
 
                     <div class="flex items-center justify-between mb-6">
                         <div>
-                            <a href="{{ route('internships.create') }}"
-                               class="btn btn-primary float-right">{{ __('Create Internship') }}</a>
+                            <a href="{{ route('internships.create') }}" class="inline-flex items-center h-10 px-6 py-6 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Create Internship</a>
                         </div>
                     </div>
                     <table class="table-fixed w-full">
@@ -44,8 +43,8 @@
                                     <td class="border px-4 py-2">{{ $internship->job_duration }}</td>
                                     <td class="border px-4 py-2">{{ \Illuminate\Support\Str::limit($internship->company_overview, 60, $end='...') }}</td>
                                     <td class="border px-4 py-2">
-                                        <a href="{{ url('/internships/' . $internship->id . '/edit') }}" class="btn btn-xs btn-info pull-right">Edit</a>
-
+                                        <a href="{{ url('/internships/' . $internship->id . '/edit') }}" class="inline-flex items-center h-10 px-6 m-2 text-sm text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">Edit</a>
+                                        
                                         <form action="{{ route('internships.destroy', $internship->id) }}" method="POST"
                                             class="d-inline" onclick="return confirm('Are you sure to delete this?')">
                                             @csrf
