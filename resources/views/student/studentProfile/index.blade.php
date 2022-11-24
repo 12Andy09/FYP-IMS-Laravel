@@ -27,7 +27,11 @@
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div class="relative">
-                        <img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px bg-white">
+                      @if (is_null( $user_info->student_profile->student_photo))
+                      <img src="{{ asset('profile/default_profile.png') }}" alt="Profile Photo" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px bg-white">
+                      @else 
+                      <img src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px bg-white">
+                      @endif
                     </div>
                   </div>
                   <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -65,7 +69,7 @@
                   <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
                     <i class="material-icons align-top text-gray-800">library_books</i>
                     Resume: 
-                    @if (file_exists(('resume/'.$user_info->student_profile->student_resume) ))
+                    @if (file_exists(('resume/'.$user_info->student_profile->student_resume) ) && (!is_null($user_info->student_profile->student_resume)))
                     <a class="underline" href="{{ asset('resume/'.$user_info->student_profile->student_resume) }}" target="_blank">View Resume</a>
                     @else
                     Resume not uploaded yet

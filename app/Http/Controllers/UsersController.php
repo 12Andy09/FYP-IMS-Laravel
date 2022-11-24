@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Student_Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UsersController extends Controller
 {
@@ -24,7 +26,7 @@ class UsersController extends Controller
     {
         //link to index page
         return view('users.index')
-            ->with('users', User::orderBy('updated_at','DESC')->paginate(10));
+            ->with('users', User::orderBy('updated_at', 'DESC')->paginate(10));
     }
 
     /**
@@ -46,28 +48,38 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'email' => 'required|max:255',
-            'password' => 'required|max:255',
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role' => ['required'],
         ]);
 
-        // create new user
         $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-            'role' => $request->input('role'),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
-        $user -> student_profile()->create(['user_id'=>$user->user_id]);
+        event(new Registered($user));
+
+        if ($request->role == 'student') {
+            $profile = Student_Profile::create([
+                'user_id' => $user->id,
+                'student_id' => null,
+                'student_education' => '',
+                'student_photo' => 'default_profile.png',
+                'student_resume' => '',
+                'student_aboutMe' => '',
+                'student_status' => '',
+                'profile_complete' => 'incomplete',
+            ]);
+        }
+
+        // $user->student_profile()->create(['user_id' => $user->user_id]);
 
 
         // redirect to index page
         return redirect()->route('users.index');
-
     }
 
     /**
@@ -96,7 +108,7 @@ class UsersController extends Controller
         // link to edit page with user data and category data
         $user = User::find($id);
         return view('users.edit')
-            ->with('user',$user);
+            ->with('user', $user);
     }
 
     /**
@@ -107,7 +119,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request,int $id)
+    public function update(Request $request, int $id)
     {
         // validate the data
         $this->validate($request, [
@@ -117,11 +129,11 @@ class UsersController extends Controller
 
         // update user
         $query = DB::table('users')
-            ->where('id',$id)
+            ->where('id', $id)
             ->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
- 
+
                 'updated_at' => now(),
                 // actually it will update this column automatically,
                 // but we want to make sure the query is executed,
@@ -129,14 +141,13 @@ class UsersController extends Controller
             ]);
 
         // if update fail, then redirect to users.index page with error toast
-        if(!$query){
-            return redirect()->route('users.index')->with('error','Record Added Failed. Please Try Again');
+        if (!$query) {
+            return redirect()->route('users.index')->with('error', 'Record Added Failed. Please Try Again');
         }
 
 
         // redirect to users.show page with success toast
-        return redirect()->route('users.index')->with('success',$request->name . ' have been updated!');
-
+        return redirect()->route('users.index')->with('success', $request->name . ' have been updated!');
     }
 
     /**
@@ -152,6 +163,6 @@ class UsersController extends Controller
 
         // redirect admin back to the good.index page and prompt a success message
         return redirect()->route('users.index')
-            ->with('success','User deleted');
+            ->with('success', 'User deleted');
     }
 }

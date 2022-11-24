@@ -16,10 +16,10 @@
                     <x-nav-link :href="route('admin_dashboard')" :active="request()->routeIs('admin_dashboard')">
                         Dashboard
                     </x-nav-link>
-                    <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships')">
+                    <x-nav-link :href="route('internships.index')" :active="request()->routeIs('internships.index')">
                         Internships Manage
                     </x-nav-link>
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users')">
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         Users Manage
                     </x-nav-link>
                     @endcan
