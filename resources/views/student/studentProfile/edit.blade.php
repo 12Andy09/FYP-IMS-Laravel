@@ -41,12 +41,6 @@
                   <div class="w-full lg:w-4/12 px-4 lg:order-1">
                   </div>
                 </div>
-<<<<<<< Updated upstream
-                <div class="text-center mt-12">
-                    <p class="text-lg underline text-blueGray-600 font-normal my-5">
-                        <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
-                        <label for="profile">Click me to upload profile</label>
-=======
                 <div class="">
                   <div class="max-w-7xl mx-auto sm:px-6 lg:px-6">
                   </div>
@@ -56,7 +50,6 @@
                         <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
                         <label for="profile" class="cursor-pointer">Click me to upload profile</label>
                         <x-input-error :messages="$errors->get('profile')" class="mt-2" />
->>>>>>> Stashed changes
                     </p>
                   <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
                     <strong class="text-xl">Name:</strong>
@@ -101,12 +94,8 @@
                   </div>
                   <div class="text-lg text-center text-black underline font-bold">
                   <input type="file" name="resume" id='resume' class='hidden'/>
-<<<<<<< Updated upstream
-                  <label for="resume" id='resume_text'>Click me to upload resume</label>
-=======
                   <label for="resume" id='resume_text' class="cursor-pointer">Click me to upload resume</label>
                   <x-input-error :messages="$errors->get('resume')" class="mt-2" />
->>>>>>> Stashed changes
                   </div>
                 </div>
                 <div class="text-center mt-12">
