@@ -25,7 +25,12 @@ class DatabaseSeeder extends Seeder
             InternshipsSeeder::class,
             UserSeeder::class,
             ApplicationsSeeder::class,
+<<<<<<< Updated upstream
 
+=======
+            StudentProfileSeeder::class,
+            CompanyProfileSeeder::class,
+>>>>>>> Stashed changes
         ]);
     }
 }

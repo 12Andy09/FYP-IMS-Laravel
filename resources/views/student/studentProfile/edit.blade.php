@@ -41,14 +41,27 @@
                   <div class="w-full lg:w-4/12 px-4 lg:order-1">
                   </div>
                 </div>
+<<<<<<< Updated upstream
                 <div class="text-center mt-12">
                     <p class="text-lg underline text-blueGray-600 font-normal my-5">
                         <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
                         <label for="profile">Click me to upload profile</label>
+=======
+                <div class="">
+                  <div class="max-w-7xl mx-auto sm:px-6 lg:px-6">
+                  </div>
+              </div>
+                <div class="text-center mt-12">
+                    <p class="text-lg underline text-blueGray-600 font-normal my-5">
+                        <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
+                        <label for="profile" class="cursor-pointer">Click me to upload profile</label>
+                        <x-input-error :messages="$errors->get('profile')" class="mt-2" />
+>>>>>>> Stashed changes
                     </p>
                   <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
                     <strong class="text-xl">Name:</strong>
                     <input type="text" name="name" value="{{ $user_info->name }}" placeholder="Name">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
                   </h3>
                   <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
                     <i class="material-icons align-top text-gray-800">mail</i>
@@ -56,6 +69,7 @@
                     <span class="text-blueGray-600 font-normal">
                     @can('isAdmin')
                     <input type="text" name="email" value="{{ $user_info->email }}" placeholder="Email" class="w-80">
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     @else
                     {{ $user_info->email }}
                     @endcan 
@@ -73,12 +87,13 @@
                     Student ID: 
                     <span class="text-blueGray-600 font-normal">
                         <input type="text" name="student_id" value="{{ $user_info->student_profile->student_id }}" placeholder="Student ID">
+                        <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
                     </span>
                   </div>
                   <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
                     <i class="material-icons align-top text-gray-800">library_books</i>
                     Resume: 
-                    @if (file_exists(('resume/'.$user_info->student_profile->student_resume) ))
+                    @if (file_exists(('resume/'.$user_info->student_profile->student_resume) ) && (!is_null($user_info->student_profile->student_resume)))
                     <a class="underline" href="{{ asset('resume/'.$user_info->student_profile->student_resume) }}" target="_blank">View Current Resume</a>
                     @else
                     Not Upload Resume Yet
@@ -86,7 +101,12 @@
                   </div>
                   <div class="text-lg text-center text-black underline font-bold">
                   <input type="file" name="resume" id='resume' class='hidden'/>
+<<<<<<< Updated upstream
                   <label for="resume" id='resume_text'>Click me to upload resume</label>
+=======
+                  <label for="resume" id='resume_text' class="cursor-pointer">Click me to upload resume</label>
+                  <x-input-error :messages="$errors->get('resume')" class="mt-2" />
+>>>>>>> Stashed changes
                   </div>
                 </div>
                 <div class="text-center mt-12">
@@ -98,6 +118,7 @@
                     <div class="w-full lg:w-9/12 px-4">
                       <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
                         <textarea type="text" name="aboutMe" placeholder="About Me" rows="5" cols="50" class="text-sm font-medium text-gray-900 dark:text-white">{{ $user_info->student_profile->student_aboutMe }}</textarea>
+                        <x-input-error :messages="$errors->get('aboutMe')" class="mt-2" />
                       </p>
                     </div>
                   </div>

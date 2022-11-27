@@ -15,14 +15,14 @@ class StudentProfileSeeder extends Seeder
      */
     public function run()
     {
-        // Student_Profile::create([
-        //     'user_id' => 4,
-        //     'student_id' => 101,
-        //     'student_education' => 'Swinburne Bachelor of ICT',
-        //     'student_image' => 'image',
-        //     'student_resume' => 'file',
-        //     'student_aboutMe' => 'Hard Working',
-        //     'student_status' => 'Free',
-        // ]);
+        Student_Profile::create([
+            'user_id' => 4,
+            'student_id' => 101,
+            'student_education' => 'Swinburne Bachelor of ICT',
+            'student_photo' => 'default_profile.png',
+            'student_resume' => '',
+            'student_aboutMe' => 'Hard Working',
+            'student_status' => '',
+        ]);
     }
 }
