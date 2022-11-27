@@ -1,8 +1,8 @@
-@section('title', 'Student Dashboard')
+@section('title', 'Internship List')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Student Dashboard') }}
+            {{ __('Internship List') }}
         </h2>
     </x-slot>
     <form method="GET">
@@ -28,13 +28,13 @@
     <div class="py-12">
         <div class="grid grid-cols-4 gap-0">
             <div class="md:w-full sm:px-6 md:px-24 col-span-3">
-                <div class="bg-white overflow-hidden 2xl:w-3/5 shadow-sm mx-auto">
+                <div class="bg-white overflow-hidden 2xl:w-4/5 shadow-sm mx-auto">
                     
                     @forelse ($internships as $internship)
                     <div>
                         <a href="/view/internship/{{$internship->id}}" class="lg:grid lg:grid-cols-4 md:flex-row md:flex md:flex-col sm:flex-row sm:flex sm:flex-col items-center mb-5 group"> 
-                            <img class="ml-4 object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/default_profile.png') }}" alt="image">
-                            <div class="lg:col-span-3 p-4 leading-normal ">
+                            <img class="mx-2 object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/default_profile.png') }}" alt="image">
+                            <div class="lg:col-span-3 p-4 leading-normal mx-4">
                                 <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-blue-500">{{$internship->job_position}}</h5>
                                 <p class="text-xs text-gray-700 dark:text-gray-400">{{$internship->job_requirement}}</p>
                                 <p class="py-4 mb-3 font-normal text-gray-700 dark:text-gray-400">{{ \Illuminate\Support\Str::limit($internship->job_description, 90, $end='...') }}</p>
