@@ -33,7 +33,7 @@
                     @forelse ($internships as $internship)
                     <div>
                         <a href="/view/internship/{{$internship->id}}" class="lg:grid lg:grid-cols-4 md:flex-row md:flex md:flex-col sm:flex-row sm:flex sm:flex-col items-center mb-5 group"> 
-                            <img class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/default_profile.png') }}" alt="image">
+                            <img class="ml-4 object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('images/default_profile.png') }}" alt="image">
                             <div class="lg:col-span-3 p-4 leading-normal ">
                                 <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-blue-500">{{$internship->job_position}}</h5>
                                 <p class="text-xs text-gray-700 dark:text-gray-400">{{$internship->job_requirement}}</p>
@@ -50,7 +50,6 @@
                     </div>
                     @empty
                     <div>
-                        <img src="/images/no-results.png" class=" mx-auto d-block pt-5" style="max-width: 10%" alt="no pic">
                         <h1 class="text-center pt-5">
                             No results found
                         </h1>

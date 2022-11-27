@@ -19,7 +19,7 @@ class StudentProfileSeeder extends Seeder
             'user_id' => 4,
             'student_id' => 101,
             'student_education' => 'Swinburne Bachelor of ICT',
-            'student_image' => 'default.png',
+            'student_photo' => 'default.png',
             'student_resume' => '',
             'student_aboutMe' => 'Hard Working',
             'student_status' => '',

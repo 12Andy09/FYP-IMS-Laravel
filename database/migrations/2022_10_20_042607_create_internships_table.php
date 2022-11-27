@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('company_overview', 65535);
             
             
-            $table->index("user_id");
+            $table->index("user_id")->onDelete('cascade');
             $table->foreign('internship_category_id')->references('id')->on('internship_categories');
         });
     }

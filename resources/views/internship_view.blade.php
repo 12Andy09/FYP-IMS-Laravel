@@ -19,7 +19,7 @@
         @endif
         <div class="md:w-4/5 flex bg-white overflow-hidden shadow-sm mx-auto grid grid-cols-2">
             <div class="p-4">
-                <img class="h-24" src="{{ asset('images/default_profile.png') }}" alt="image">
+                <img class="h-24" src="{{ asset('images/default_profile.png') }}" alt="profile">
                 <h5 class="mt-4 text-xl"><strong>{{$internship->job_position}}</strong></h5>
                 <p class="mb-4">{{$internship->category->category_title}}</p>
                 

@@ -61,13 +61,13 @@
                                         </form>
 
                                         <form action="{{ route('applications.update', $application->id) }}" method="POST"
-                                            class="d-inline" onclick="return confirm('Are you sure to reject this?')">
+                                            class="d-inline">
                                             @csrf
                                             @method('PUT')
                        
                                             <input type="hidden" name="application_status" value="rejected">
 
-                                            <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                            <button type="submit" onclick="return confirm('Are you sure to reject this?')" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                                 Reject
                                             </button>
                                         </form>
@@ -115,13 +115,13 @@
                                         </form>
 
                                         <form action="{{ route('applications.update', $application->id) }}" method="POST"
-                                            class="d-inline" onclick="return confirm('Are you sure to reject this?')">
+                                            class="d-inline">
                                             @csrf
                                             @method('PUT')
                        
                                             <input type="hidden" name="application_status" value="rejected">
 
-                                            <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                            <button type="submit" onclick="return confirm('Are you sure to reject this?')" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                                 Reject
                                             </button>
                                         </form>
@@ -164,13 +164,13 @@
                                             </x-primary-button>
                                         </form>
                                         <form action="{{ route('applications.update', $application->id) }}" method="POST"
-                                            class="d-inline" onclick="return confirm('Are you sure to reject this?')">
+                                            class="d-inline" >
                                             @csrf
                                             @method('PUT')
                        
                                             <input type="hidden" name="application_status" value="rejected">
 
-                                            <button type="submit" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                            <button type="submit" onclick="return confirm('Are you sure to reject this?')" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                                 Reject
                                             </button>
                                         </form>
@@ -242,7 +242,7 @@
                             </tbody>  
                         </table>
                         <span>
-                            {{$applications_rejected->links('pagination::tailwind') }}
+                            {{ $applications_rejected->links('pagination::tailwind') }}
                         </span>
                     </div> 
                 </div>
