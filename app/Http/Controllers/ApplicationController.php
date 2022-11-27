@@ -109,15 +109,14 @@ class ApplicationController extends Controller
     public function show()
     {
         $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
-        $applications_student = Application::where([
-            ['application_status', '!=', 'completed'],
-            ['user_id', '=', Auth::id()]
-        ])->orderByDESC('updated_at')->paginate(10, ['*'], 'waiting');
+        $applications_student = Application::where('user_id', Auth::id())
+            ->where('application_status', '!=', 'approved')
+            ->orderByDESC('updated_at')->paginate(10, ['*'], 'waiting');
 
-        $applications_completed = Application::where([
-            ['application_status', 'completed'],
-            ['user_id', Auth::id()]
-        ])->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
+        $applications_completed = Application::where('user_id', Auth::id())
+            ->where('application_status', 'approved')
+            ->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
+
         return view('student.studentApplication')
             // ->with('applications', Application::all());
             ->with('applications', $applications)

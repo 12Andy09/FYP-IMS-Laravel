@@ -5,143 +5,109 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Profile
+            My Company Profile
         </h2>
     </x-slot>
+    <form action="{{ route('company_profile.update',$user_info->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf  
 
-    <main class="profile-page">
-        <section class="relative block h-500-px">
-            <form action="{{ route('student_profile.update',$user_info->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-          <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
-            background-image: url('{{asset('images/profile_background.jpg')}}');">
-            <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
-          </div>
-          <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
-            <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-              <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-          </div>
-        </section>
-        <section class="relative py-16 bg-blueGray-200">
-          <div class="container mx-auto px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-              <div class="px-6">
-                <div class="flex flex-wrap justify-center">
-                  <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div class="relative">
-                        <img id="profile_photo" src="{{ asset('profile/'.$user_info->student_profile->student_photo) }}" alt="Profile Photo" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px bg-white">
+        @method('PUT')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200 flex">
+                    <div class="p-6 w-2/6 flex justify-center shadow-md">
+                        <img src="{{ asset('profile/default_profile.png') }}" alt="Profile Photo" class="h-auto align-middle border-none max-w-150-px bg-white">
                     </div>
-                  </div>
-                  <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                    <div class="py-6 px-3 mt-32 sm:mt-0">
+                    <div class="p-6 w-4/6 flex justify-center items-center text-4xl text-transform: capitalize shadow-md space-x-3">
+                        <strong class="text-md">Name:</strong>
+                        <input type="text" name="name" value="{{ $user_info->name }}" placeholder="Name">
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
-                  </div>
-                  <div class="w-full lg:w-4/12 px-4 lg:order-1">
-                  </div>
                 </div>
-                <div class="">
-                  <div class="max-w-7xl mx-auto sm:px-6 lg:px-6">
-                    {{-- errors message --}}
-                      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                          @if ($errors->any())
-                          <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                              <p class="text-danger">Errors</p>
-                          </div>
-                          <ul class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-                              @foreach ($errors->all() as $error)
-                                  <li>
-                                      {{ $error }}
-                                  </li>
-                              @endforeach
-                          </ul>
-                          @endif
-                      </div>
-                  </div>
-              </div>
-                <div class="text-center mt-12">
-                    <p class="text-lg underline text-blueGray-600 font-normal my-5">
-                        <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
-                        <label for="profile" class="cursor-pointer">Click me to upload profile</label>
-                    </p>
-                  <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700">
-                    <strong class="text-xl">Name:</strong>
-                    <input type="text" name="name" value="{{ $user_info->name }}" placeholder="Name">
-                  </h3>
-                  <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
-                    <i class="material-icons align-top text-gray-800">mail</i>
-                    Email: 
-                    <span class="text-blueGray-600 font-normal">
-                    @can('isAdmin')
-                    <input type="text" name="email" value="{{ $user_info->email }}" placeholder="Email" class="w-80">
-                    @else
-                    {{ $user_info->email }}
-                    @endcan 
-                    </span>
-                  </div>
-                  <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
-                    <i class="material-icons align-top text-gray-800">school</i>
-                    <span class="align-top">Education:</span> 
-                    <span class="text-blueGray-600 font-normal">
-                        <textarea type="text" name="education" placeholder="My Education" rows="3" cols="30">{{ $user_info->student_profile->student_education }}</textarea>
-                    </span>
-                  </div>
-                  <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
-                    <i class="material-icons align-middle mb-2 text-gray-800">person</i>
-                    Student ID: 
-                    <span class="text-blueGray-600 font-normal">
-                        <input type="text" name="student_id" value="{{ $user_info->student_profile->student_id }}" placeholder="Student ID">
-                    </span>
-                  </div>
-                  <div class="text-lg leading-normal mt-0 mb-2 text-black font-bold">
-                    <i class="material-icons align-top text-gray-800">library_books</i>
-                    Resume: 
-                    @if (file_exists(('resume/'.$user_info->student_profile->student_resume) ))
-                    <a class="underline" href="{{ asset('resume/'.$user_info->student_profile->student_resume) }}" target="_blank">View Current Resume</a>
-                    @else
-                    Not Upload Resume Yet
-                    @endif
-                  </div>
-                  <div class="text-lg text-center text-black underline font-bold">
-                  <input type="file" name="resume" id='resume' class='hidden'/>
-                  <label for="resume" id='resume_text' class="cursor-pointer">Click me to upload resume</label>
-                  </div>
-                </div>
-                <div class="text-center mt-12">
-                  <span class="text-xl font-semibold leading-normal text-blueGray-700 mb-2 text-indigo-600">
-                    About Me
-                  </span>
-                <div class="py-10 border-t-2 border-indigo-500 text-center">
-                  <div class="flex flex-wrap justify-center">
-                    <div class="w-full lg:w-9/12 px-4">
-                      <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                        <textarea type="text" name="aboutMe" placeholder="About Me" rows="5" cols="50" class="text-sm font-medium text-gray-900 dark:text-white">{{ $user_info->student_profile->student_aboutMe }}</textarea>
-                      </p>
+                <div class="p-6 bg-white border-b border-gray-200 shadow-md">
+                    <p class="font-bold text-2xl text-center">Company Overview</p>
+                    <div class="py-5">
+                        <p class="font-semibold text-xl">About Us</p>
+                        <textarea id="company_overview" name="company_overview" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tell us about your company...">{{ $user_info->company_profile->company_overview }}</textarea>
+                        <x-input-error :messages="$errors->get('company_overview')" class="mt-2" />
                     </div>
-                  </div>
+                    <div class="py-5">
+                        <p class="font-semibold text-xl">Why Join Us</p>
+                        <textarea id="company_whyJoin" name="company_whyJoin" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Why should we join u...">{{ $user_info->company_profile->company_whyJoin }}</textarea>
+                        <x-input-error :messages="$errors->get('company_whyJoin')" class="mt-2" />
+                    </div>
+                    <div class="py-5">
+                        <p class="font-semibold text-xl">Company Address</p>
+                        <textarea id="company_address" name="company_address" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Why should we join u...">{{ $user_info->company_profile->company_address }}</textarea>
+                        <x-input-error :messages="$errors->get('company_address')" class="mt-2" />
+                    </div>
+                    <div class="py-5">
+                        <p class="font-semibold text-xl">Company Email</p>
+                        <input type="email" id="email" name="email" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Why should we join u..." value="{{ $user_info->email }}">
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
                 </div>
-                <div class="text-center mb-10">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <p class="font-bold text-2xl text-center">Company Location</p>
+                    <p class="text-gray-400">How to find your location's latitude and longtitude</p>
+                    <ul class="list-disc list-inside text-gray-400">
+                        <li>Left click the Google icon on the Google Map</li>
+                        <li>Search Your address</li>
+                        <li>Right Click on the map to view the latitude and longtitude of selected address</li>
+                    </ul>
+
+                    <div class="my-8 space-x-5">
+                        <strong class="text-md">Your Company Location: Latitude, Longtitude</strong>
+                        <input type="text" name="address_latitude" placeholder="Latitude" value="{{ $user_info->company_profile->address_lat }}">
+                        <input type="text" name="address_longtitude" placeholder="Longtidue" value="{{ $user_info->company_profile->address_lon }}">
+                        <x-input-error :messages="$errors->get('address_latitude')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('address_longtitude')" class="mt-2" />
+                        </div>
+
+                    <div class="container mt-5">
+                        <div id="map"></div>
+                    </div>
+
+
+
+
+
+                    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+                    <style type="text/css">
+                        #map {
+                          height: 400px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        function initMap() {
+                          const myLatLng = { lat: {{ $user_info->company_profile->address_lat }}, lng: {{ $user_info->company_profile->address_lon }} };
+                          const map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 5,
+                            center: myLatLng,
+                          });
+                  
+                          const marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map,
+                          });
+                          map.setZoom(17);
+                        map.setCenter(marker.getPosition());
+                        }
+
+                        window.initMap = initMap;
+                    </script>
+                  
+                    <script type="text/javascript"
+                        src="https://maps.google.com/maps/api/js?key={{ "AIzaSyDdWoO2911PZx7ZI-tMriVlrHkT0Uq3mNc" }}&callback=initMap" ></script>
+
+                </div>
+                <div class="text-center my-10 space-x-5">
                     <a href="{{url()->previous()}}" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</a>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save Changes</button>
                 </div>
-              </div>
             </div>
-          </div>
-        </form>
-        </section>
-      </main>
+        </div>
+    </div>
+    </form>
 </x-app-layout>
-
-<script>
-document.getElementById('resume').onchange = function(){
-    if (!this.value == ""){
-        let text = this.value;
-        text = text.replace(/.*[\/\\]/, '');
-        document.getElementById('resume_text').textContent = text;
-    }else{
-        document.getElementById('resume_text').textContent = "Click me to upload resume";
-    }
-}
-
-</script>

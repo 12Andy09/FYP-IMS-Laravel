@@ -28,6 +28,8 @@ Route::resource('company_profile', CompanyProfileController::class);
 
 Route::get('/view/student_profile/{id}', [StudentProfileController::class, 'index'])
     ->where('id', '[0-9]');
+Route::get('/view/company_profile/{id}', [CompanyProfileController::class, 'index'])
+    ->where('id', '[0-9]');
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
 
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');

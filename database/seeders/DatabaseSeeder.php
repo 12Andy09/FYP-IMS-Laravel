@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ApplicationsSeeder::class,
             StudentProfileSeeder::class,
+            CompanyProfileSeeder::class,
         ]);
     }
 }

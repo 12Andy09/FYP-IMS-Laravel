@@ -47,12 +47,19 @@
                     <x-nav-link :href="route('student_dashboard')" :active="request()->routeIs('student_dashboard')">
                         Dashboard
                     </x-nav-link>
+                    <x-nav-link :href="route('applications.show',Auth::id())" :active="request()->routeIs('applications.show')">
+                        My Application
+                    </x-nav-link>       
                     <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('student_profile.index')">
                         My Profile
+<<<<<<< Updated upstream
                     </x-nav-link>
                     <x-nav-link :href="route('student_profile.index')" :active="request()->routeIs('.index')">
                         My Application
                     </x-nav-link>                    
+=======
+                    </x-nav-link>             
+>>>>>>> Stashed changes
                     @endcan
                 </div>        
 
