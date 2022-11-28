@@ -55,7 +55,7 @@
                        
                                             <input type="hidden" name="application_status" value="waiting_admin">
 
-                                            <x-primary-button type="submit" >
+                                            <x-primary-button type="submit"  class="my-3">
                                                 Approve
                                             </x-primary-button>
                                         </form>
@@ -109,7 +109,7 @@
                        
                                             <input type="hidden" name="application_status" value="doing">
 
-                                            <x-primary-button type="submit" >
+                                            <x-primary-button type="submit"  class="my-3">
                                                 Approve
                                             </x-primary-button>
                                         </form>
@@ -159,7 +159,7 @@
                        
                                             <input type="hidden" name="application_status" value="completed">
 
-                                            <x-primary-button type="submit" >
+                                            <x-primary-button type="submit" class="my-3">
                                                 Complete
                                             </x-primary-button>
                                         </form>
@@ -191,6 +191,7 @@
                                     <th class="px-4 py-2">User ID</th>
                                     <th class="px-4 py-2">Internship ID</th>
                                     <th class="px-4 py-2">Application Details</th>
+                                    <th class="px-4 py-2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -200,7 +201,17 @@
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('student_profile.show', $application->user_id) }}" target="_blank">{{ $application->user_id }}-{{ $application->user->name }}</a></td>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('internships.show', $application->internship_id) }}" target="_blank">{{ $application->internship_id }}-{{ $application->internship->job_position }}-{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-8">{{ \Illuminate\Support\Str::limit($application->application_details, 100, $end='...') }} </td>                                </tr>
-                                
+                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <td>
+                                            <button type="submit" onclick="return confirm('Are you sure to delete this?')" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </form>
+                                </tr>
                             @endif    
                             @endforeach   
                             </tbody>  

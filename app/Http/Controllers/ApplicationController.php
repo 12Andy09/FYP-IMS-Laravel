@@ -54,13 +54,18 @@ class ApplicationController extends Controller
                 ->whereRelation('internship', 'user_id', '=', Auth::id())
                 ->orderByDESC('updated_at')->paginate(10, ['*'], 'company');
             $applications_approved = Application::where('application_status', '!=', 'waiting_company')
+                ->where('application_status', '!=', 'rejected')
                 ->whereRelation('internship', 'user_id', '=', Auth::id())
-                ->orderByDESC('updated_at')->paginate(10, ['*'], 'admin');
+                ->orderByDESC('updated_at')->paginate(10, ['*'], 'company');
+            $applications_rejected = Application::where('application_status', 'rejected')
+                ->whereRelation('internship', 'user_id', '=', Auth::id())
+                ->orderByDESC('updated_at')->paginate(10, ['*'], 'rejected');
 
             return view('company.companyDashboard')
                 ->with('applications', $applications)
                 ->with('applications_company', $applications_company)
-                ->with('applications_approved', $applications_approved);
+                ->with('applications_approved', $applications_approved)
+                ->with('applications_rejected', $applications_rejected);
         }
     }
 
@@ -117,11 +122,15 @@ class ApplicationController extends Controller
             ->where('application_status', 'approved')
             ->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
 
+        $applications_rejected = Application::where('application_status', 'rejected')
+            ->where('user_id', Auth::id())
+            ->orderByDESC('updated_at')->paginate(10, ['*'], 'rejected');
+
         return view('student.studentApplication')
-            // ->with('applications', Application::all());
             ->with('applications', $applications)
             ->with('applications_student', $applications_student)
-            ->with('applications_completed', $applications_completed);
+            ->with('applications_completed', $applications_completed)
+            ->with('applications_rejected', $applications_rejected);
     }
 
     /**

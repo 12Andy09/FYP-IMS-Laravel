@@ -46,7 +46,7 @@
                        
                                             <input type="hidden" name="application_status" value="waiting_admin">
 
-                                            <x-primary-button type="submit" >
+                                            <x-primary-button type="submit"  class="my-3">
                                                 Approve
                                             </x-primary-button>
                                         </form>

@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
 use App\Models\Internship;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,8 @@ use App\Models\Internship;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes(['verify' => true]);
 
 Route::resource('internships', InternshipsController::class);
 Route::resource('applications', ApplicationController::class);
