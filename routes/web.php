@@ -5,6 +5,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ChartJSController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InternshipsController;
@@ -35,6 +36,8 @@ Route::get('/view/student_profile/{id}', [StudentProfileController::class, 'inde
 Route::get('/view/company_profile/{id}', [CompanyProfileController::class, 'index'])
     ->where('id', '[0-9]');
 Route::get('/view/internship/{id}', [InternshipsController::class, 'view']);
+
+Route::get('admin/view_report', [ChartJSController::class, 'Charts'])->middleware('can:isAdmin')->name('viewReport');
 
 Route::get('/filterCategory/{category_id}', [\App\Http\Controllers\StudentDashboardController::class, 'filterInternshipBasedOnCategory'])->name('filterCategory');
 

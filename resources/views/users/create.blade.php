@@ -59,8 +59,8 @@
                                 <input type="radio" id="student" name="role" value="student">
                                 <label for="student">Student</label>
                                 {{-- if company profile created, can set this on --}}
-                                {{-- <input type="radio" id="company" name="role" value="company">
-                                <label for="company">Company</label><br> --}}
+                                <input type="radio" id="company" name="role" value="company">
+                                <label for="company">Company</label><br>
                                 <x-input-error :messages="$errors->get('role')" class="mt-2" />
                             </div>    
                         </div>

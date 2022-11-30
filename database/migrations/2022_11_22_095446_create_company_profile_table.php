@@ -15,11 +15,8 @@ return new class extends Migration
     {
         Schema::create('company_profile', function (Blueprint $table) {
             $table->id()->name('user_id');
-            $table->longText('company_overview')->nullable();
-            $table->longText('company_whyJoin')->nullable();
-            $table->text('company_address')->nullable();
-            $table->float('address_lat', 10, 6)->nullable();
-            $table->decimal('address_lon', 10, 6)->nullable();
+            $table->longText('company_overview')->nullable()->unique();
+            $table->text('company_location')->nullable();
             $table->string('company_photo')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

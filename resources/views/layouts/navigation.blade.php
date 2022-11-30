@@ -22,6 +22,9 @@
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         Users Manage
                     </x-nav-link>
+                    <x-nav-link :href="route('viewReport')" :active="request()->routeIs('viewReport')">
+                        View Report
+                    </x-nav-link>
                     @endcan
 
                     @can('isCompany')

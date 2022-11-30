@@ -59,6 +59,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'email_verified_at' => now(),
         ]);
         event(new Registered($user));
 
@@ -72,6 +73,15 @@ class UsersController extends Controller
                 'student_aboutMe' => '',
                 'student_status' => '',
                 'profile_complete' => 'incomplete',
+
+            ]);
+        }
+        elseif ($request->role == 'company') {
+            $profile = Company_Profile::create([
+                'user_id' => $user->id,
+                'company_overview' => '',
+                'company_location' => '',
+                'company_photo' => 'default_profile.png',
             ]);
         }
 
