@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('address_lat', 10, 6)->nullable();
             $table->decimal('address_lon', 10, 6)->nullable();
             $table->string('company_photo')->nullable();
+            $table->enum('permission_post', ['unapproved', 'approved', 'declined']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

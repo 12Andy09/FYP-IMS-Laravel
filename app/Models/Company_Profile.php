@@ -20,5 +20,6 @@ class Company_Profile extends Model
                 'address_lat',
                 'address_lon',
                 'company_photo',
+                'permission_post',
         ];
 }

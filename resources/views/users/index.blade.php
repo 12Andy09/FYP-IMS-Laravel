@@ -51,6 +51,25 @@
                                     <td class="border px-4 py-2">{{ $adminUser->role }}</td>
                                     <td class="border px-4 py-2">
                                         {{-- <a href="{{ url('/users/' . $adminUser->id . '/edit') }}" class="btn btn-xs btn-info pull-right">Edit</a> --}}
+                                        @if ($adminUser->role == "company")
+                                        <form action="{{ route('users.update', $adminUser->id) }}" method="POST"
+                                            class="d-inline" onclick="return confirm('Are you sure to give permission to post internship for this user?')">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            @if ($adminUser->company_profile->permission_post != "approved")
+                                            <input type="hidden" value="approved" name="post_permission">
+                                            <x-primary-button type="submit"  class="my-3" >
+                                                Permit Post Permission
+                                            </x-primary-button>
+                                            @else
+                                            <input type="hidden" value="declined" name="post_permission">
+                                            <x-primary-button type="submit"  class="my-3" >
+                                                Decline Post Permission
+                                            </x-primary-button>
+                                            @endif
+                                        </form>
+                                        @endif
                                         <form action="{{ route('users.destroy', $adminUser->id) }}" method="POST"
                                             class="d-inline" onclick="return confirm('Are you sure to delete this?')">
                                             @csrf

@@ -16,13 +16,14 @@ class CompanyProfileSeeder extends Seeder
     public function run()
     {
         Company_Profile::create([
-            'user_id' => 3,
+            'user_id' => 2,
             'company_overview' => "",
             'company_whyJoin' => "",
             'company_address' => '',
             'address_lat' => 1.5323097999958626,
             'address_lon' => 110.35715184656452,
             'company_photo' => 'default_profile.png',
+            'permission_post' => "unapproved"
         ]);
     }
 }

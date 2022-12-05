@@ -54,6 +54,12 @@ class InternshipsController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::allows('isCompany')) {
+            if (Auth::user()->company_profile->permission_post != 'approved') {
+                abort(401);
+            }
+        }
+
         $input = Validator::make($request->all(), [
             'job_position' => 'required',
             'job_description' => 'required',

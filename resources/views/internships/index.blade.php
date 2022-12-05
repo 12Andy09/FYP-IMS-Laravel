@@ -14,7 +14,15 @@
 
                     <div class="flex items-center justify-between mb-6">
                         <div>
+                            @if (Auth::user()->role == "company")
+                                @if (Auth::user()->company_profile->permission_post != "approved")
+                                    <p class="text-red-700">You are not permitted to post internship, Please contact admin for this issue. Current Permission Status: {{ Auth::user()->company_profile->permission_post }}</p>
+                                @else
+                                <a href="{{ route('internships.create') }}" class="inline-flex items-center h-10 px-6 py-6 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Create Internship</a>
+                                @endif
+                            @else
                             <a href="{{ route('internships.create') }}" class="inline-flex items-center h-10 px-6 py-6 m-2 text-sm text-green-100 transition-colors duration-150 bg-green-700 rounded-lg focus:shadow-outline hover:bg-green-800">Create Internship</a>
+                            @endif
                         </div>
                     </div>
                     <table class="table-fixed w-full">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company_Profile;
 use App\Models\Student_Profile;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -75,13 +76,16 @@ class UsersController extends Controller
                 'profile_complete' => 'incomplete',
 
             ]);
-        }
-        elseif ($request->role == 'company') {
+        } elseif ($request->role == 'company') {
             $profile = Company_Profile::create([
                 'user_id' => $user->id,
-                'company_overview' => '',
-                'company_location' => '',
+                'company_overview' => "",
+                'company_whyJoin' => "",
+                'company_address' => '',
+                'address_lat' => 1.5323097999958626,
+                'address_lon' => 110.35715184656452,
                 'company_photo' => 'default_profile.png',
+                'permission_post' => "unapproved"
             ]);
         }
 
@@ -131,33 +135,43 @@ class UsersController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        // validate the data
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-        ]);
-
-        // update user
-        $query = DB::table('users')
-            ->where('id', $id)
-            ->update([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-
-                'updated_at' => now(),
-                // actually it will update this column automatically,
-                // but we want to make sure the query is executed,
-                // so add it wont give wrong error toast
+        if (is_null($request['post_permission'])) {
+            // validate the data
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required',
             ]);
 
-        // if update fail, then redirect to users.index page with error toast
-        if (!$query) {
-            return redirect()->route('users.index')->with('error', 'Record Added Failed. Please Try Again');
+            // update user
+            $query = DB::table('users')
+                ->where('id', $id)
+                ->update([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+
+                    'updated_at' => now(),
+                    // actually it will update this column automatically,
+                    // but we want to make sure the query is executed,
+                    // so add it wont give wrong error toast
+                ]);
+
+            // if update fail, then redirect to users.index page with error toast
+            if (!$query) {
+                return redirect()->route('users.index')->with('error', 'Record Added Failed. Please Try Again');
+            }
+
+
+            // redirect to users.show page with success toast
+            return redirect()->route('users.index')->with('success', $request->name . ' have been updated!');
         }
+        //for update company post permission
+        else {
+            $user = User::with('company_profile')->find($id);
+            $user->company_profile->permission_post = $request['post_permission'];
+            $user->push();
 
-
-        // redirect to users.show page with success toast
-        return redirect()->route('users.index')->with('success', $request->name . ' have been updated!');
+            return redirect()->route('users.index')->with('success', $user->name . ' post permission have been updated!');
+        }
     }
 
     /**
