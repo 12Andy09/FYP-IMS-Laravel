@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ApplicationsSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class ApplicationsSeeder extends Seeder
     public function run()
     {
         $status = ['waiting_company','waiting_admin','doing','completed'];
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 25; $i++) {
             $user_id = DB::table('users')->get()->random()->id;
             $internship_id = DB::table('internships')->get()->random()->id;
             DB::table('applications')->insert([
@@ -27,6 +28,18 @@ class ApplicationsSeeder extends Seeder
                 'application_details'=>'test'.$i,
                 'created_at' => now(),
                 'updated_at' => now(),
+            ]);
+        }
+        for ($i = 1; $i <= 25; $i++) {
+            $user_id = DB::table('users')->get()->random()->id;
+            $internship_id = DB::table('internships')->get()->random()->id;
+            DB::table('applications')->insert([
+                'user_id' => $user_id,
+                'internship_id' => $internship_id,
+                'application_status'=>$status[rand(0,3)],
+                'application_details'=>'test'.$i,
+                'created_at' => Carbon::now()->subMonth(8),
+                'updated_at' => Carbon::now()->subMonth(8),
             ]);
         }
     }

@@ -11,11 +11,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-center font-bold text-2xl text-gray-800 leading-tight py-8">
-                    <h2 class="mb-8">Chart for Application Status for <span id="application"></span> applications</h2>
+                    <h2 class="mb-8">Chart for Application Status for <span id="application"></span> applications in last 6 months</h2>
 					<canvas id="PieChart"></canvas>
 				</div>
                 <div class="text-center font-bold text-xl text-gray-800 leading-tight py-8">
-                    <h2 class="mb-8">Chart for Number of Internships (Category) with total of <span id="available"> </span> internships available</h2>
+                    <h2 class="mb-8">Chart for Number of Internships (Category) with total of <span id="available"> </span> internships available in last 6 months</h2>
 					<canvas id="BarChart"></canvas>
 				</div>
             </div>
