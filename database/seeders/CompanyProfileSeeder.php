@@ -22,7 +22,7 @@ class CompanyProfileSeeder extends Seeder
             'company_address' => '',
             'address_lat' => 1.5323097999958626,
             'address_lon' => 110.35715184656452,
-            'company_photo' => 'default.png',
+            'company_photo' => 'default_profile.png',
         ]);
     }
 }

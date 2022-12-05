@@ -31,7 +31,22 @@
                             @foreach ($users as $adminUser) 
                                 <tr>
                                     <td class="border px-4 py-2">{{ $adminUser->id }}</td>
-                                    <td class="border px-4 py-2">{{ $adminUser->name }}</td>
+                                    <td class="border px-4 py-2">
+                                        
+                                        @if ($adminUser->role == "student")
+                                        <a class="underline" target="_blank"
+                                        href="{{ route('student_profile.show', $adminUser->id) }}">
+                                        {{ $adminUser->name }}
+                                        </a>
+                                        @elseif ($adminUser->role == "company")
+                                        <a class="underline" target="_blank"
+                                        href="{{ route('company_profile.show', $adminUser->id) }}">
+                                        {{ $adminUser->name }}
+                                        </a>
+                                        @else
+                                        {{ $adminUser->name }}
+                                    @endif
+                                </td>
                                     <td class="border px-4 py-2">{{ $adminUser->email }}</td>
                                     <td class="border px-4 py-2">{{ $adminUser->role }}</td>
                                     <td class="border px-4 py-2">

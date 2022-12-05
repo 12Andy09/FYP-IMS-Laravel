@@ -43,6 +43,7 @@
                         "#d21243", //red
                         "#5f255f", //purple
                         "#B27200", //yellow
+                        "#3b3530", //grey
                     ]
                 }]
             },
@@ -68,7 +69,7 @@
         const data = {
             labels: ['Business','IT','Engineering','Design','Science','Law','Other'],
             datasets: [{
-                label: 'Dataset value',
+                label: 'Number of Internship',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: data2,

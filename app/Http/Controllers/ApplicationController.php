@@ -115,11 +115,15 @@ class ApplicationController extends Controller
     {
         $applications = Application::orderBy('updated_at', 'DESC')->paginate(10);
         $applications_student = Application::where('user_id', Auth::id())
-            ->where('application_status', '!=', 'approved')
+            ->where('application_status', '!=', 'doing')
+            ->where('application_status', '!=', 'completed')
+            ->where('application_status', '!=', 'rejected')
             ->orderByDESC('updated_at')->paginate(10, ['*'], 'waiting');
 
         $applications_completed = Application::where('user_id', Auth::id())
-            ->where('application_status', 'approved')
+            ->where('application_status', '!=', 'waiting_admin')
+            ->where('application_status', '!=', 'waiting_company')
+            ->where('application_status', '!=', 'rejected')
             ->orderByDESC('updated_at')->paginate(10, ['*'], 'completed');
 
         $applications_rejected = Application::where('application_status', 'rejected')
@@ -165,13 +169,13 @@ class ApplicationController extends Controller
             return redirect()->route("{$role}_dashboard")
                 ->with('success', 'Application Status Changed to Waiting for Admin Approval');
         } elseif ($application->application_status == "doing") {
-            return redirect()->route('admin_dashboard')
+            return redirect()->route("{$role}_dashboard")
                 ->with('success', 'Application Status Changed to Ongoing');
         } elseif ($application->application_status == "completed") {
-            return redirect()->route('admin_dashboard')
+            return redirect()->route("{$role}_dashboard")
                 ->with('success', 'Application Status Changed to Completed');
         } elseif ($application->application_status == "rejected") {
-            return redirect()->route('admin_dashboard')
+            return redirect()->route("{$role}_dashboard")
                 ->with('success', 'Application Status Changed to Rejected');
         }
     }

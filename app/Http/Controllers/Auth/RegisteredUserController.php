@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company_Profile;
 use App\Models\Student_Profile;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -59,6 +60,18 @@ class RegisteredUserController extends Controller
                 'student_aboutMe' => '',
                 'student_status' => '',
                 'profile_complete' => 'incomplete',
+            ]);
+        }
+
+        if ($request->role == 'company') {
+            $profile = Company_Profile::create([
+                'user_id' => $user->id,
+                'company_overview' => '',
+                'company_whyJoin' => '',
+                'company_address' => '',
+                'address_lat' => 0.000000,
+                'address_lon' => 0.000000,
+                'company_photo' => 'default_profile.png',
             ]);
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
 
 class CompanyProfileController extends Controller
@@ -92,11 +93,29 @@ class CompanyProfileController extends Controller
             'email' => ['required', Rule::unique('users', 'email')->ignore($user->email, 'email'), 'email'],
         ]);
 
+        $user->name = $request["name"];
         $user->company_profile->company_overview = $request['company_overview'];
         $user->company_profile->company_whyJoin = $request['company_whyJoin'];
         $user->company_profile->company_address = $request['company_address'];
         $user->company_profile->address_lat = $request['address_latitude'];
         $user->company_profile->address_lon = $request['address_longtitude'];
+
+        //if uploaded profile != null
+        if ($request->hasFile('profile')) {
+            //delete previous file with different extension
+            $previous_file = $user->company_profile->company_photo;
+            if ($previous_file != "default_profile.png") {
+                $path = public_path('profile/' . $previous_file);
+                File::delete($path);
+            }
+
+            //store into database
+            $profile_file_name = $id . "profile." . $request->file('profile')->extension();
+            $user->company_profile->company_photo = $profile_file_name;
+            //store files
+            $request->file('profile')->storeAs('profile', $profile_file_name);
+        }
+
         $user->push();
 
         return redirect()->route('company_profile.show', $id)->with('success', 'Profile Edit successfully.');

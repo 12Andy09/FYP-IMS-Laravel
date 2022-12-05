@@ -16,11 +16,11 @@ class StudentProfileSeeder extends Seeder
     public function run()
     {
         Student_Profile::create([
-            'user_id' => 4,
+            'user_id' => 3,
             'student_id' => 101,
             'student_education' => 'Swinburne Bachelor of ICT',
             'student_photo' => 'default_profile.png',
-            'student_resume' => '',
+            'student_resume' => null,
             'student_aboutMe' => 'Hard Working',
             'student_status' => '',
         ]);

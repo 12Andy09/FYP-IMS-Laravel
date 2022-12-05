@@ -77,8 +77,10 @@ class StudentProfileController extends Controller
         if ($request->hasFile('profile')) {
             //delete previous file with different extension
             $previous_file = $user->student_profile->student_photo;
-            $path = public_path('profile/' . $previous_file);
-            File::delete($path);
+            if ($previous_file != "default_profile.png") {
+                $path = public_path('profile/' . $previous_file);
+                File::delete($path);
+            }
 
             //store into database
             $profile_file_name = $user_id . "profile." . $request->file('profile')->extension();

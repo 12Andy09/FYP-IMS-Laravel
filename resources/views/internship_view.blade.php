@@ -84,7 +84,7 @@
                         </div>
                         <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                             <p>About: @if(Auth()->user()->student_profile->student_aboutMe != null){{ Auth()->user()->student_profile->student_aboutMe }} @else Not Provided @endif</p>
-                            <p>Resume: @if(Auth()->user()->student_profile->student_resume != null){{ Auth()->user()->student_profile->student_resume }}@else Not Provided @endif</p>
+                            <p>Resume: @if(Auth()->user()->student_profile->student_resume != null)<a class="underline" href="{{ asset('resume/'.Auth()->user()->student_profile->student_resume) }}" target="_blank">View Resume</a> @else Not Provided @endif</p>
                         </div>
                         <div class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                             <x-input-label for="application_details" class="font-bold text-base" :value="__('Application Details (300 characters limit)')" />

@@ -13,7 +13,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex">
                     <div class="p-6 w-2/6 flex justify-center opacity-75">
-                        <img src="{{ asset('profile/default_profile.png') }}" alt="Profile Photo" class="h-auto align-middle border-none max-w-150-px bg-white">
+                        <img src="{{ asset('profile/'.$user_info->company_profile->company_photo) }}" alt="Profile Photo" class="h-auto align-middle border-none max-w-150-px bg-white">
                     </div>
                     <div class="p-6 w-4/6 flex justify-center items-center text-4xl text-transform: capitalize">
                         {{ $user_info->name }}
@@ -23,31 +23,31 @@
                     <p class="font-bold text-2xl text-center">Company Overview</p>
                     <div class="py-5 border-b-4">
                         <p class="font-semibold text-xl my-3">About Us</p>
-                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_overview }}</p>
+                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_overview ?? "None"}}</p>
                     </div>
                     <div class="py-5 border-b-4">
                         <p class="font-semibold text-xl my-3">Why Join Us</p>
-                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_whyJoin }}</p>
+                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_whyJoin ?? "None"}}</p>
                     </div>
                     <div class="py-5 border-b-4">
                         <p class="font-semibold text-xl my-3">Company Address</p>
-                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_address }}</p>
+                        <p class="whitespace-pre-line">{{ $user_info->company_profile->company_address ?? "None"}}</p>
                     </div>
                     <div class="py-5">
                     <p class="font-semibold text-xl my-3">Company Email</p>
                     <p class="whitespace-pre-line">{{ $user_info->email }}</p>
                     </div>
-                </div>
+                </div>    
                 <div class="p-6 bg-white border-b border-gray-200">
                     <p class="font-bold text-2xl text-center">Company Location</p>
+                    {{-- @if ( !(is_null($user_info->company_profile->address_lat) || is_null($user_info->company_profile->address_lon)) ) --}}
                     <div class="container mt-5">
                         <div id="map"></div>
                     </div>
-                    <p class="text-gray-400 text-center">Go to edit to update your map location</p>
-
-
-
-
+                    {{-- @endif --}}
+                    @if (Auth::id() == $user_info->id)
+                    <p class="text-gray-400 text-center">Go to edit to update/include Google Map location</p>
+                    @endif
 
                     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
                     <style type="text/css">
@@ -74,12 +74,11 @@
                         window.initMap = initMap;
                     </script>
                   
-                    <script type="text/javascript"
-                        src="https://maps.google.com/maps/api/js?key={{ "AIzaSyDdWoO2911PZx7ZI-tMriVlrHkT0Uq3mNc" }}&callback=initMap" ></script>
+                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ "AIzaSyDdWoO2911PZx7ZI-tMriVlrHkT0Uq3mNc" }}&callback=initMap" ></script>
 
                 </div>
                 <div class="text-center my-10">
-                    @if (Auth::id() == $user_info->id)
+                    @if (Auth::id() == $user_info->id || Auth::user()->role == "admin")
                   <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href="{{ route('company_profile.edit',$user_info->id) }}">Edit</a>
                     @endif
                 </div>

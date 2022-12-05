@@ -13,6 +13,7 @@ class Company_Profile extends Model
         public $incrementing = false;
 
         protected $fillable = [
+                'user_id',
                 'company_overview',
                 'company_whyJoin',
                 'company_address',

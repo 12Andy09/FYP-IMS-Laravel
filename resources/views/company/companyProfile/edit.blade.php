@@ -17,7 +17,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex">
                     <div class="p-6 w-2/6 flex justify-center shadow-md">
-                        <img src="{{ asset('profile/default_profile.png') }}" alt="Profile Photo" class="h-auto align-middle border-none max-w-150-px bg-white">
+                        <img src="{{ asset('profile/'.$user_info->company_profile->company_photo) }}" id="profile_photo" alt="Profile Photo" class="h-auto align-middle border-none max-w-150-px bg-white">
+                        <input type="file" id="profile" name="profile" class="hidden" onchange="document.getElementById('profile_photo').src = window.URL.createObjectURL(this.files[0])"/>
+                        <label for="profile" class="cursor-pointer">Click me to upload profile</label>
+                        <x-input-error :messages="$errors->get('profile')" class="mt-2" />
                     </div>
                     <div class="p-6 w-4/6 flex justify-center items-center text-4xl text-transform: capitalize shadow-md space-x-3">
                         <strong class="text-md">Name:</strong>
@@ -81,7 +84,13 @@
                     </style>
                     <script type="text/javascript">
                         function initMap() {
-                          const myLatLng = { lat: {{ $user_info->company_profile->address_lat }}, lng: {{ $user_info->company_profile->address_lon }} };
+                            let lat_value = {{ $user_info->company_profile->address_lat }};
+                            let lon_value = {{ $user_info->company_profile->address_lon }};
+                            if ( (lat_value == 0.000000) || (lon_value == 0.000000) ){
+                                lat_value = 1.532302;
+                                lon_value = 110.357173;
+                            }
+                          const myLatLng = { lat: lat_value, lng: lon_value };
                           const map = new google.maps.Map(document.getElementById("map"), {
                             zoom: 5,
                             center: myLatLng,

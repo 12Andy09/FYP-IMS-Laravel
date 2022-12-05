@@ -38,7 +38,7 @@
                             @foreach ($applications_student as $application)
                                 <tr>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="/view/internship/{{ $application->internship_id }}" target="_blank">{{ $application->internship->job_description }}</a></td>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">Company Profile</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-10">{{ $application->internship->job_position }}</td>  
                                     <td class="border px-4 py-10">{{ $application->application_status }}</td>  
                                 </tr>     
@@ -64,7 +64,7 @@
                             @foreach ($applications_completed as $application)
                                 <tr>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="/view/internship/{{ $application->internship_id }}" target="_blank">{{ $application->internship->job_description }}</a></td>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">Company Profile</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-10">{{ $application->internship->job_position }}</td>  
                                     <td class="border px-4 py-10">{{ $application->application_status }}</td>  
                                 </tr>  
@@ -90,7 +90,7 @@
                             @if ($application->application_status=="rejected")
                                 <tr>
                                     <td class="border px-4 py-2"><a class="underline text-blue-600" href="/view/internship/{{ $application->internship_id }}" target="_blank">{{ $application->internship->job_description }}</a></td>
-                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">Company Profile</a></td>
+                                    <td class="border px-4 py-2"><a class="underline text-blue-600" href="{{ route('company_profile.show', $application->internship->user_id) }}" target="_blank">{{ $application->internship->user->name }}</a></td>
                                     <td class="border px-4 py-10">{{ $application->internship->job_position }}</td>  
                                     <td class="border px-4 py-10">{{ $application->application_status }}</td>  
                                 </tr>
